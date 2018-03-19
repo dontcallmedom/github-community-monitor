@@ -1,5 +1,7 @@
 const isNotABot = n => !["chromium-wpt-export-bot", "moz-wptsync-bot", "GoogleCodeExporter", "wpt-pr-bot", "w3c-bots", "greenkeeper[bot]", "hoppipolla-critic-bot"].includes(n);
 
+const body = document.querySelector('body');
+
 Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.json())))
   .then(([contributors,repos]) => {
     const nonBotContributors = {};
@@ -8,11 +10,33 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
       nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
     });
 
-    const charts = ["contributions", "prs", "contributors", "monthcontributors", "first", "repos", "contributionsPerContributors", "popularRepos", "popularRecentRepos"];
-    charts.forEach(id => {
+    const charts = {"contributions": {title: "Evolution of Github contributions over time", description: "A contribution is either an issue, a comment or a pull request. Contributions from well-known bots are ignored."},
+                    "prs": {title: "Evolution of Github pull requests over time"},
+                    "contributors": {title: "Evolution of unique contributors over time"},
+                    "monthcontributors": {title: "Number of unique contributors in a given month"},
+                    "first": {title: "Number of new contributors in a given month"},
+                    "repos": {title: "Number of repositories with contributions received during the month"},
+                    "contributionsPerContributors": {title: "Number of contributors having made a given number of contributions"},
+                    "popularRepos": {title: "Contribution patterns on most popular repositories",
+                                     description: "Highlights the repartition of rare vs frequent contributors in a given repository"},
+                    "popularRecentRepos": {title: "Contributions received in the past 6 months in the most recently popular repositories"}
+                   };
+    Object.keys(charts).forEach(id => {
+      const section = document.createElement("section");
       const div = document.createElement("div");
       div.id = id;
-      document.querySelector('body').appendChild(div);
+      if (charts[id].title) {
+        const heading = document.createElement("h2");
+        heading.textContent = charts[id].title;
+        section.appendChild(heading);
+      }
+      if (charts[id].description) {
+        const desc = document.createElement("p");
+        desc.textContent = charts[id].description;
+        section.appendChild(desc);
+      }
+      section.appendChild(div);
+      body.appendChild(section);
     });
     const months = [...new Set(Object.values(nonBotContributors).map(c => c.map(a => a.time.slice(0,7))).reduce((a,b) => a.concat(b), []))].sort();
 
