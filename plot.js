@@ -166,29 +166,36 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
     const now = new Date();
     const monthAgo = n => { const d = new Date(); d.setMonth(now.getMonth() - n); return d;}
     const recentActivity = a => a.time > monthAgo(6).toJSON();
-
-    const recentContributorsPerRepo = Object.keys(nonBotContributors).map(contributor => nonBotContributors[contributor].filter(recentActivity).map(a => a.repo).reduce((acc, repo) => { if (!acc[repo]) acc[repo] = 0; acc[repo]++; return acc;}, {}));
+    const perType = {"comment": 0, "issue": 0, "pull_request": 0};
+    const recentContributorsPerRepo = Object.keys(nonBotContributors).map(contributor => nonBotContributors[contributor].filter(recentActivity).reduce((acc, a) => { if (!acc[a.repo]) acc[a.repo] = {...perType}; acc[a.repo][a.type]++; return acc;}, {}));
     const repoPerRecentContributions = recentContributorsPerRepo
           .reduce((acc, contributor) =>
                   {
                     Object.keys(contributor)
                       .forEach(repo => {
                         if (!acc[repo]) {
-                          acc[repo] = 0;
+                          acc[repo] = {...perType};
+                          acc[repo].total = 0;
                         }
-                        acc[repo] += contributor[repo];
+                        acc[repo].comment += contributor[repo].comment;
+                        acc[repo].issue += contributor[repo].issue;
+                        acc[repo].pull_request += contributor[repo].pull_request;
+                        acc[repo].total += contributor[repo].comment + contributor[repo].issue + contributor[repo].pull_request;
                       });
                     return acc;
                   }, {});
-    const topRecentRepos = Object.keys(repoPerRecentContributions).sort((a,b) => repoPerRecentContributions[b] - repoPerRecentContributions[a]).slice(0,40);
-
+    const topRecentRepos = Object.keys(repoPerRecentContributions).sort((a,b) => repoPerRecentContributions[b].total - repoPerRecentContributions[a].total).slice(0,40);
+    console.log(repoPerRecentContributions);
     c3.generate({
       bindto: "#popularRecentRepos",
       data: {
         columns: [
-          ['Contributions in the past 6 months'].concat(topRecentRepos.map(repo => repoPerRecentContributions[repo]))
+          ['comments'].concat(topRecentRepos.map(repo => repoPerRecentContributions[repo].comment)),
+          ['issues'].concat(topRecentRepos.map(repo => repoPerRecentContributions[repo].issue)),
+          ['PRs'].concat(topRecentRepos.map(repo => repoPerRecentContributions[repo].pull_request))
         ],
         type: 'bar',
+        groups: [['comments', 'issues', 'PRs']]
       },
       axis: {
         x: {
