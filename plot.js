@@ -1,6 +1,15 @@
 
 const body = document.querySelector('body');
 
+const getColors = (types, custom) => {
+  const patterns = {
+    "neutral": '#1f77b4',
+    "comment": '#ff7f0e', "issue": '#2ca02c', "pull_request": "#9467bd",
+    "1": '#bedb92', "2-9": '#77c063', "10-29": '#569358', "30-99": '#397a4c', "100+": '#3e6c60'
+  };
+  return {pattern: types.map(t => patterns[t]).concat(custom)};
+};
+
 const loading = document.createElement("p");
 loading.textContent = "Loading data (this may take a while)...";
 body.appendChild(loading);
@@ -44,7 +53,7 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
     });
     const months = [...new Set(Object.values(nonBotContributors).map(c => c.map(a => a.time.slice(0,7))).reduce((a,b) => a.concat(b), []))].sort();
 
-    const buildTimeseries = (id, ...data) => {
+    const buildTimeseries = (id, colors, ...data) => {
       return {
         bindto: id,
         data: {
@@ -55,6 +64,7 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
             ...data
           ]
         },
+        color: colors,
         axis: {
           x: {
             type: 'timeseries',
@@ -68,34 +78,40 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
 
     c3.generate(
       buildTimeseries('#contributions',
+                      getColors(['neutral']),
                       ['Contributions'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m).length).reduce((a,b) => a + b, 0))))
     );
     c3.generate(
-        buildTimeseries('#prs',
-                        ['Pull Requests'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m && a.type === "pull_request").length).reduce((a,b) => a + b, 0)))
-                       ));
+      buildTimeseries('#prs',
+                      getColors(['pull_request']),
+                      ['Pull Requests'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m && a.type === "pull_request").length).reduce((a,b) => a + b, 0)))
+                     ));
     c3.generate(
-        buildTimeseries('#contributors',
-                        ['Contributors (ever)'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) <= m)).length)),
+      buildTimeseries('#contributors',
+                      getColors(['neutral', 'pull_request']),
+                      ['Contributors (ever)'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) <= m)).length)),
                         ['PR Contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) <= m && a.type === "pull_request")).length))
                        ));
 
     c3.generate(
-        buildTimeseries('#monthcontributors',
-                        ['Contributors (during that month)'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) === m)).length)),
-                        ['PR Contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) === m && a.type === "pull_request")).length))
-                       ));
+      buildTimeseries('#monthcontributors',
+                      getColors(['neutral', 'pull_request']),
+                      ['Contributors (during that month)'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) === m)).length)),
+                      ['PR Contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) === m && a.type === "pull_request")).length))
+                     ));
     c3.generate(
-        buildTimeseries('#first',
-                        ['First-time contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c[0].time.slice(0,7) === m).length)),
-                        ['First-time PR contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => (c.find(a => a.type==="pull_request") || {time: ''}).time.slice(0,7) === m).length))
-                       ));
+      buildTimeseries('#first',
+                      getColors(['neutral', 'pull_request']),
+                      ['First-time contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c[0].time.slice(0,7) === m).length)),
+                      ['First-time PR contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => (c.find(a => a.type==="pull_request") || {time: ''}).time.slice(0,7) === m).length))
+                     ));
     c3.generate(
-        buildTimeseries('#repos',
-                        ['Repos with contributions'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m).map(a => a.repo)).reduce((a,b) => new Set([...a, ...b]), new Set()).size)),
-                        ['Repos with new pull requests'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m && a.type === "pull_request").map(a => a.repo)).reduce((a,b) => new Set([...a, ...b]), new Set()).size)),
-                        ['Total repos'].concat(Array(months.length -1).fill(null)).concat([repos.length])
-                       ));
+      buildTimeseries('#repos',
+                      getColors(['neutral', 'pull_request'], ['black']),
+                      ['Repos with contributions'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m).map(a => a.repo)).reduce((a,b) => new Set([...a, ...b]), new Set()).size)),
+                      ['Repos with new pull requests'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m && a.type === "pull_request").map(a => a.repo)).reduce((a,b) => new Set([...a, ...b]), new Set()).size)),
+                      ['Total repos'].concat(Array(months.length -1).fill(null)).concat([repos.length])
+                     ));
     const contributorsPerRepo = Object.keys(nonBotContributors).map(contributor => nonBotContributors[contributor].map(a => a.repo).reduce((acc, repo) => { if (!acc[repo]) acc[repo] = 0; acc[repo]++; return acc;}, {}));
     const repoContributionRanges = {"total": 0, "1": 0, "2-9": 0, "10-29": 0, "30-99": 0, "100+": 0};
     const numberToRange = n => {
@@ -145,8 +161,9 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
             'contributions': 'y2'
         },
         type: 'bar',
-        groups: [['1', '2-9', '10-29', '30-99', '100+']]
+        groups: [['contributions'], ['1', '2-9', '10-29', '30-99', '100+']]
       },
+      color: getColors(['1', 'neutral', '2-9', '10-29', '30-99', '100+']),
       axis: {
         x: {
           type: 'category',
@@ -163,7 +180,8 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
           ['Number of contributors having made a number of contributions'].concat(contributionsPerContributors)
         ],
         type: 'bar',
-      }
+      },
+      color: getColors(['neutral'])
     });
 
 
@@ -200,6 +218,7 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
         type: 'bar',
         groups: [['comments', 'issues', 'PRs']]
       },
+      color: getColors(['comment', 'issue', 'pull_request']),
       axis: {
         x: {
           type: 'category',
