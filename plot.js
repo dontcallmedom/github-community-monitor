@@ -96,9 +96,9 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
                   {
                     const contributions = Object.keys(contributor)
                           .reduce((a,b) => a + contributor[b], 0);
-                    acc[numberToRange(contributions)]++;
+                    acc[contributions]++;
                     return acc;
-                  }, {...repoContributionRanges});
+                  }, Array(Math.max(...contributorsPerRepo.map(contributor => Object.keys(contributor).reduce((a,b) => a + contributor[b], 0)))).fill(0));
 
     const topRepos = Object.keys(repoPerContributions).sort((a,b) => repoPerContributions[b].total - repoPerContributions[a].total).slice(0,40);
 
@@ -132,19 +132,9 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
       bindto: "#contributionsPerContributors",
       data: {
         columns: [
-          ['Number of contributors having made a number of contributions in the given range', contributionsPerContributors['1'],
-           contributionsPerContributors['2-9'],
-           contributionsPerContributors['10-29'],
-           contributionsPerContributors['30-99'],
-           contributionsPerContributors['100+']]
+          ['Number of contributors having made a number of contributions'].concat(contributionsPerContributors)
         ],
         type: 'bar',
-      },
-      axis: {
-        x: {
-          type: 'category',
-          categories: ['1', '2-9', '10-29', '30-99', '100+']
-        }
       }
     });
 
