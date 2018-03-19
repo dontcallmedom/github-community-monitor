@@ -185,7 +185,6 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
                     return acc;
                   }, {});
     const topRecentRepos = Object.keys(repoPerRecentContributions).sort((a,b) => repoPerRecentContributions[b].total - repoPerRecentContributions[a].total).slice(0,40);
-    console.log(repoPerRecentContributions);
     c3.generate({
       bindto: "#popularRecentRepos",
       data: {
