@@ -22,9 +22,9 @@ const lastMonthContributors = Object.values(nonBotContributors).filter(c => c.fi
 console.log("Active contributors in the last month: " + lastMonthContributors.length);
 console.log("Active PR contributors in the last month: " + lastMonthContributors.filter(pullRequestFilter).length);
 
-console.log("First-time contributors in the past 6 months:");
-for (let i = 0; i < 6; i++) {
-  const month = (monthAgo(6 - i).toJSON()).slice(0,7);
+console.log("First-time contributors in the past 12 months:");
+for (let i = 12; i > 0; i--) {
+  const month = (monthAgo(i).toJSON()).slice(0,7);
   const firstTime = Object.keys(nonBotContributors).filter(c => nonBotContributors[c][0].time.slice(0,7) == month);
   console.log(month + ": " + firstTime.length + " incl " + firstTime.filter(c => pullRequestFilter(nonBotContributors[c])).length + " PRs (" + firstTime.join(", ") + ")");
 }
