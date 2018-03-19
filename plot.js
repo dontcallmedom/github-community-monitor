@@ -2,10 +2,13 @@ const isNotABot = n => !["chromium-wpt-export-bot", "moz-wptsync-bot", "GoogleCo
 
 const body = document.querySelector('body');
 
+const loading = document.createElement("p");
+loading.textContent = "Loading data (this may take a while)...";
+body.appendChild(loading);
 Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.json())))
   .then(([contributors,repos]) => {
     const nonBotContributors = {};
-
+    loading.remove();
     Object.keys(contributors).filter(isNotABot).forEach(c => {
       nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
     });
