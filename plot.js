@@ -8,7 +8,7 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
       nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
     });
 
-    const charts = ["contributions", "prs", "contributors", "first", "repos", "popularRepos", "popularRecentRepos"];
+    const charts = ["contributions", "prs", "contributors", "monthcontributors", "first", "repos", "contributionsPerContributors", "popularRepos", "popularRecentRepos"];
     charts.forEach(id => {
       const div = document.createElement("div");
       div.id = id;
@@ -48,7 +48,13 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
                        ));
     c3.generate(
         buildTimeseries('#contributors',
-                        ['Contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) === m)).length)),
+                        ['Contributors (ever)'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) <= m)).length)),
+                        ['PR Contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) <= m && a.type === "pull_request")).length))
+                       ));
+
+    c3.generate(
+        buildTimeseries('#monthcontributors',
+                        ['Contributors (during that month)'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) === m)).length)),
                         ['PR Contributors'].concat(months.map(m => Object.values(nonBotContributors).filter(c => c.find(a => a.time.slice(0,7) === m && a.type === "pull_request")).length))
                        ));
     c3.generate(
@@ -85,6 +91,15 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
                       });
                     return acc;
                   }, {});
+    const contributionsPerContributors = contributorsPerRepo
+          .reduce((acc, contributor) =>
+                  {
+                    const contributions = Object.keys(contributor)
+                          .reduce((a,b) => a + contributor[b], 0);
+                    acc[numberToRange(contributions)]++;
+                    return acc;
+                  }, {...repoContributionRanges});
+
     const topRepos = Object.keys(repoPerContributions).sort((a,b) => repoPerContributions[b].total - repoPerContributions[a].total).slice(0,40);
 
     c3.generate({
@@ -96,7 +111,7 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
           ['2-9'].concat(topRepos.map(repo => repoPerContributions[repo]['2-9'])),
           ['10-29'].concat(topRepos.map(repo => repoPerContributions[repo]['10-29'])),
           ['30-99'].concat(topRepos.map(repo => repoPerContributions[repo]['30-99'])),
-          ['100+'].concat(topRepos.map(repo => repoPerContributions[repo]['100+'])),
+          ['100+'].concat(topRepos.map(repo => repoPerContributions[repo]['100+']))
         ],
         axes: {
             'contributions': 'y2'
@@ -112,6 +127,27 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
         y2: { show: true}
       }
     });
+
+    c3.generate({
+      bindto: "#contributionsPerContributors",
+      data: {
+        columns: [
+          ['Number of contributors having made a number of contributions in the given range', contributionsPerContributors['1'],
+           contributionsPerContributors['2-9'],
+           contributionsPerContributors['10-29'],
+           contributionsPerContributors['30-99'],
+           contributionsPerContributors['100+']]
+        ],
+        type: 'bar',
+      },
+      axis: {
+        x: {
+          type: 'category',
+          categories: ['1', '2-9', '10-29', '30-99', '100+']
+        }
+      }
+    });
+
 
     const now = new Date();
     const monthAgo = n => { const d = new Date(); d.setMonth(now.getMonth() - n); return d;}
@@ -136,7 +172,7 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
       bindto: "#popularRecentRepos",
       data: {
         columns: [
-          ['contributions'].concat(topRecentRepos.map(repo => repoPerRecentContributions[repo]))
+          ['Contributions in the past 6 months'].concat(topRecentRepos.map(repo => repoPerRecentContributions[repo]))
         ],
         type: 'bar',
       },
