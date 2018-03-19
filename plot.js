@@ -96,9 +96,9 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
                   {
                     const contributions = Object.keys(contributor)
                           .reduce((a,b) => a + contributor[b], 0);
-                    acc[contributions]++;
+                    acc[Math.min(contributions, 50)]++;
                     return acc;
-                  }, Array(Math.max(...contributorsPerRepo.map(contributor => Object.keys(contributor).reduce((a,b) => a + contributor[b], 0)))).fill(0));
+                  }, Array(51).fill(0));
 
     const topRepos = Object.keys(repoPerContributions).sort((a,b) => repoPerContributions[b].total - repoPerContributions[a].total).slice(0,40);
 
