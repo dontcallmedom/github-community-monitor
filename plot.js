@@ -1,12 +1,13 @@
-const isNotABot = n => !["chromium-wpt-export-bot", "moz-wptsync-bot", "GoogleCodeExporter", "wpt-pr-bot", "w3c-bots", "greenkeeper[bot]", "hoppipolla-critic-bot"].includes(n);
 
 const body = document.querySelector('body');
 
 const loading = document.createElement("p");
 loading.textContent = "Loading data (this may take a while)...";
 body.appendChild(loading);
-Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.json())))
-  .then(([contributors,repos]) => {
+Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).then(r => r.json())))
+  .then(([contributors, repos, bots]) => {
+    const isNotABot = n => !bots.includes(n);
+
     const nonBotContributors = {};
     loading.remove();
     Object.keys(contributors).filter(isNotABot).forEach(c => {
@@ -206,4 +207,4 @@ Promise.all(['contributors.json', 'repos.json'].map(p => fetch(p).then(r => r.js
         }
       }
     });
-  });
+  }).catch(console.error.bind(console));
