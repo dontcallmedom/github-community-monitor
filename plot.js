@@ -1,24 +1,28 @@
 
 const body = document.querySelector('body');
 
+const patterns = {
+  "neutral": '#1f77b4',
+  "comment": '#ff7f0e', "issue": '#2ca02c', "pull_request": "#9467bd",
+  "1": '#bedb92', "2-9": '#77c063', "10-29": '#569358', "30-99": '#397a4c', "100+": '#3e6c60'
+};
+
 const getColors = (types, custom) => {
-  const patterns = {
-    "neutral": '#1f77b4',
-    "comment": '#ff7f0e', "issue": '#2ca02c', "pull_request": "#9467bd",
-    "1": '#bedb92', "2-9": '#77c063', "10-29": '#569358', "30-99": '#397a4c', "100+": '#3e6c60'
-  };
   return {pattern: types.map(t => patterns[t]).concat(custom)};
 };
 
 const loading = document.createElement("p");
 loading.textContent = "Loading data (this may take a while)...";
 body.appendChild(loading);
+body.setAttribute("aria-busy", true);
+
 Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).then(r => r.json())))
   .then(([contributors, repos, bots]) => {
     const isNotABot = n => !bots.includes(n);
 
     const nonBotContributors = {};
     loading.remove();
+    body.setAttribute("aria-busy", false);
     Object.keys(contributors).filter(isNotABot).forEach(c => {
       nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
     });
@@ -30,6 +34,7 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
                     "first": {title: "Number of new contributors in a given month"},
                     "repos": {title: "Number of repositories with contributions received during the month"},
                     "contributionsPerContributors": {title: "Number of contributors having made a given number of contributions"},
+                    "distribution": {title: "Distribution of most active contributors and contributions across most active repos"},
                     "popularRepos": {title: "Contribution patterns on most popular repositories",
                                      description: "Highlights the repartition of rare vs frequent contributors in a given repository"},
                     "popularRecentRepos": {title: "Contributions received in the past 6 months in the most recently popular repositories"}
@@ -145,6 +150,71 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
                   }, Array(51).fill(0));
 
     const topRepos = Object.keys(repoPerContributions).sort((a,b) => repoPerContributions[b].total - repoPerContributions[a].total).slice(0,40);
+    const topContributors = Object.keys(nonBotContributors).sort((a,b) => nonBotContributors[b].length - nonBotContributors[a].length).slice(0,40);
+
+    const dist = d3.select("#distribution").append("svg").attr('height', 1200).chart("Sankey");
+    const nodeNames = topRepos
+          .concat(topContributors);
+    const links = topContributors
+          .map(contributor => {
+            const c = nonBotContributors[contributor];
+            const cIdx = nodeNames.indexOf(contributor);
+            return c.reduce((acc, a) => {
+              let repoData = acc.find(x => x.repo === a.repo);
+              if (!repoData) {
+                repoData = {repo: a.repo, issue: 0, pull_request: 0, comment: 0};
+                acc.push(repoData);
+              }
+              repoData[a.type]++;
+              return acc;
+            }, []).map(a =>
+                       {
+                         const repoLinks = [];
+                         const repoIdx = nodeNames.indexOf(a.repo);
+                         if (repoIdx >= 0) {
+                           if (a.issue) {
+                             repoLinks.push({
+                               source: cIdx,
+                               target: repoIdx,
+                               value: a.issue,
+                               type: "issue"
+                             });
+                           }
+                           if (a.pull_request) {
+                             repoLinks.push({
+                               source: cIdx,
+                               target: repoIdx,
+                               value: a.pull_request,
+                               type: "pull_request"
+                             });
+                           }
+                           if (a.comment) {
+                             repoLinks.push({
+                               source: cIdx,
+                               target: repoIdx,
+                               value: a.comment,
+                               type: "comment"
+                             });
+                           }
+                         }
+                         return repoLinks;
+                       })
+          })
+          .reduce((a,b) => a.concat(b), [])
+          .reduce((a,b) => a.concat(b), [])
+          .reduce((acc, link) => {
+            const existingLinkIdx = acc.findIndex(l => l.source === link.source && l.target === link.target && l.type === link.type);
+            if (existingLinkIdx >= 0) {
+              acc[existingLinkIdx].value += link.value;
+            } else {
+              acc.push(link);
+            }
+            return acc;
+          }, []);
+
+    dist.colorLinks(link => patterns[link.type])
+      .draw({nodes: nodeNames.map(r => { return {name: r};}),
+             links});
 
     c3.generate({
       bindto: "#popularRepos",
