@@ -251,7 +251,10 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
         ],
         type: 'bar',
       },
-      color: getColors(['neutral'])
+      color: getColors(['neutral']),
+      axis: {
+        x: { tick: { format: x => x === 50 ? "50+" : x}}
+      }
     });
 
 
