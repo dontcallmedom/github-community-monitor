@@ -213,9 +213,25 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
           }, []);
 
     dist.colorLinks(link => patterns[link.type])
-      .draw({nodes: nodeNames.map(r => { return {name: r};}),
+      .draw({nodes: nodeNames.map(r => { return {name: r, id: r};}),
              links});
-
+    d3.select("#distribution").selectAll('*[data-node-id]')
+      .append('title')
+      .text(node => {
+        if (node.targetLinks.length) {
+          const prs = node.targetLinks.filter(link => link.type === "pull_request").reduce((total, link) => total + link.value, 0);
+          const issues = node.targetLinks.filter(link => link.type === "issue").reduce((total, link) => total + link.value, 0);
+          const comments = node.targetLinks.filter(link => link.type === "comment").reduce((total, link) => total + link.value, 0);
+          const contributors = node.targetLinks.reduce((set, link) => set.add(link.source.name), new Set());
+          return `${node.name} has received ${prs + issues + comments} contributions (${prs} PRs, ${issues} issues, ${comments} comments) from ${contributors.size} contributors (${[...contributors].join(', ')})`;
+        } else if (node.sourceLinks.length) {
+          const prs = node.sourceLinks.filter(link => link.type === "pull_request").reduce((total, link) => total + link.value, 0);
+          const issues = node.sourceLinks.filter(link => link.type === "issue").reduce((total, link) => total + link.value, 0);
+          const comments = node.sourceLinks.filter(link => link.type === "comment").reduce((total, link) => total + link.value, 0);
+          const repos = node.sourceLinks.reduce((set, link) => set.add(link.target.name), new Set());
+          return `${node.name} has made ${prs + issues + comments} contributions (${prs} PRs, ${issues} issues, ${comments} comments) to ${repos.size} repos (${[...repos].join(', ')})`;
+        }
+      });
     c3.generate({
       bindto: "#popularRepos",
       data: {
