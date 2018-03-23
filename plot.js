@@ -211,24 +211,55 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
             }
             return acc;
           }, []);
-
+    const nodes = nodeNames.map(node => {
+      const nodeIdx = nodeNames.indexOf(node)
+      const contributors = links.filter(l => l.target === nodeIdx).reduce((set, link) => set.add(nodeNames[link.source]), new Set());
+      const repos = links.filter(l => l.source === nodeIdx).reduce((set, link) => set.add(nodeNames[link.target]), new Set());
+      return {name: node, id: node, contributors, repos};
+    })
     dist.colorLinks(link => patterns[link.type])
-      .draw({nodes: nodeNames.map(r => { return {name: r, id: r};}),
+      .colorNodes(node => {
+        const n = nodes.find(n => n.name === node);
+        if (n.contributors.size)
+          return patterns[numberToRange(n.contributors.size)];
+        else if (n.repos.size)
+          return patterns[numberToRange(n.repos.size)];
+      })
+      .nodeWidth(24)
+      .draw({nodes: nodes,
              links});
+    // adjust the width of boxes based on the number of targets / sources
+    d3.select("#distribution").selectAll('*[data-node-id] rect')
+      .attr('width', node => {
+        const n = nodes.find(n => n.name === node.name);
+        if (n.contributors.size) {
+          return n.contributors.size;
+        } else if (n.repos.size) {
+          return n.repos.size;
+        }
+      })
+      .attr('x', function(node) {
+        const n = nodes.find(n => n.name === node.name);
+        if (n.repos.size) {
+          return this.x.baseVal.value + (24 - n.repos.size);
+        }
+      });
+
     d3.select("#distribution").selectAll('*[data-node-id]')
       .append('title')
       .text(node => {
+        const n = nodes.find(n => n.name === node.name);
         if (node.targetLinks.length) {
           const prs = node.targetLinks.filter(link => link.type === "pull_request").reduce((total, link) => total + link.value, 0);
           const issues = node.targetLinks.filter(link => link.type === "issue").reduce((total, link) => total + link.value, 0);
           const comments = node.targetLinks.filter(link => link.type === "comment").reduce((total, link) => total + link.value, 0);
-          const contributors = node.targetLinks.reduce((set, link) => set.add(link.source.name), new Set());
+          const contributors = n.contributors;
           return `${node.name} has received ${prs + issues + comments} contributions (${prs} PRs, ${issues} issues, ${comments} comments) from ${contributors.size} contributors (${[...contributors].join(', ')})`;
         } else if (node.sourceLinks.length) {
           const prs = node.sourceLinks.filter(link => link.type === "pull_request").reduce((total, link) => total + link.value, 0);
           const issues = node.sourceLinks.filter(link => link.type === "issue").reduce((total, link) => total + link.value, 0);
           const comments = node.sourceLinks.filter(link => link.type === "comment").reduce((total, link) => total + link.value, 0);
-          const repos = node.sourceLinks.reduce((set, link) => set.add(link.target.name), new Set());
+          const repos = n.repos;
           return `${node.name} has made ${prs + issues + comments} contributions (${prs} PRs, ${issues} issues, ${comments} comments) to ${repos.size} repos (${[...repos].join(', ')})`;
         }
       });
