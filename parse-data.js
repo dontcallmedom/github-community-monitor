@@ -7,8 +7,8 @@ const comments = {};
 const contributors = {};
 const repos = new Set();
 
-const add_contributors = function (list, repo, type) {
-  list.forEach(item => {
+const add_contributors = function (list, repo, type, until) {
+  list.filter(item => item.created_at < until + "T00:00:00Z").forEach(item => {
     const login = item.user.login;
     if (!contributors[login]) {
       contributors[login] =  [];
@@ -37,9 +37,9 @@ const loadDir = async dirPath => {
       .then(JSON.parse)
       .catch(err => { console.error("Failed parsing " + path + ": " + err);})
       .then(data => {
-        const [,repo, datatype] = path.match(/^w3c-([^\.]*)\.(.*)-[0-9]{8}-[0-9]{4}\.json$/);
+        const [,repo, datatype] = path.match(/^([a-zA-Z0-9]*-.*)\.([^\.]*)-[0-9]{8}-[0-9]{4}\.json$/);
         repos.add(repo);
-        add_contributors(data, repo, datatype);
+        add_contributors(data, repo, datatype, process.argv[4]);
         switch(datatype) {
         case "issues":
           issues[repo] = data.filter(i => !i.pull_request).map(extract_issue);
