@@ -7,7 +7,10 @@ const comments = {};
 const contributors = {};
 const repos = new Set();
 
-const add_contributors = function (list, repo, type, until) {
+const add_contributors = function (list, type, until) {
+  if (!list.length) return;
+  const repo = list[0].url.split('https://api.github.com/repos/')[1].split("/").slice(0,2).join("/");
+  repos.add(repo);
   list.filter(item => item.created_at < until + "T00:00:00Z").forEach(item => {
     const login = item.user.login;
     if (!contributors[login]) {
@@ -19,6 +22,7 @@ const add_contributors = function (list, repo, type, until) {
     }
     contributors[login] = contributors[login].concat([{type: activity, repo, time: item.created_at, href: item.html_url}]);
   });
+  return repo;
 };
 
 const extract_issue = function(i) {
@@ -37,9 +41,9 @@ const loadDir = async dirPath => {
       .then(JSON.parse)
       .catch(err => { console.error("Failed parsing " + path + ": " + err);})
       .then(data => {
-        const [,repo, datatype] = path.match(/^([a-zA-Z0-9]*-.*)\.([^\.]*)-[0-9]{8}-[0-9]{4}\.json$/);
-        repos.add(repo);
-        add_contributors(data, repo, datatype, process.argv[4]);
+        const [,, datatype] = path.match(/^([a-zA-Z0-9]*-.*)\.([^\.]*)-[0-9]{8}-[0-9]{4}\.json$/);
+        const repo = add_contributors(data, datatype, process.argv[4]);
+        if (!repo) return;
         switch(datatype) {
         case "issues":
           issues[repo] = data.filter(i => !i.pull_request).map(extract_issue);
