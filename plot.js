@@ -69,6 +69,7 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
             ...data
           ]
         },
+        line: { connectNull: true },
         color: colors,
         axis: {
           x: {
@@ -84,7 +85,18 @@ Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).t
     c3.generate(
       buildTimeseries('#contributions',
                       getColors(['neutral']),
-                      ['Contributions'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m).length).reduce((a,b) => a + b, 0))))
+                      ['Contributions'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m).length).reduce((a,b) => a + b, 0))),
+                      ['Contributions (3 months average)'].concat(months.map((m,i, arr) => {
+                        if ( i < 2) return null;
+                        const threeMonths = arr.slice(i - 2, i + 1);
+                        return Math.round(Object.values(nonBotContributors).map(c => c.filter(a => threeMonths.includes(a.time.slice(0,7))).length).reduce((a,b) => a + b, 0) / 3);
+                      })),
+                      ['Contributions (12 months average)'].concat(months.map((m,i, arr) => {
+                        if ( i < 12) return null;
+                        const twelveMonths = arr.slice(i - 11, i + 1);
+                        return Math.round(Object.values(nonBotContributors).map(c => c.filter(a => twelveMonths.includes(a.time.slice(0,7))).length).reduce((a,b) => a + b, 0) / 12);
+                      }))
+                     )
     );
     c3.generate(
       buildTimeseries('#prs',
