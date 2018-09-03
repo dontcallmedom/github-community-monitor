@@ -18,7 +18,7 @@ body.setAttribute("aria-busy", true);
 
 Promise.all(['contributors.json', 'repos.json', 'bots.json'].map(p => fetch(p).then(r => r.json())))
   .then(([contributors, repos, bots]) => {
-    const isNotABot = n => !bots.includes(n) && n => n !== "ghost";
+    const isNotABot = n => !bots.includes(n) && n !== "ghost";
     const nonBotContributors = {};
     loading.remove();
     body.setAttribute("aria-busy", false);
