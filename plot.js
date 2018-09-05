@@ -16,7 +16,6 @@ loading.textContent = "Loading data...";
 body.appendChild(loading);
 body.setAttribute("aria-busy", true);
 
-
 const charts = {"contributions": {title: "Evolution of Github contributions over time", description: "A contribution is either an issue, a comment or a pull request. Contributions from well-known bots are ignored."},
                     "prs": {title: "Evolution of Github pull requests over time"},
                     "contributors": {title: "Evolution of unique contributors over time"},
@@ -27,7 +26,8 @@ const charts = {"contributions": {title: "Evolution of Github contributions over
                     "distribution": {title: "Distribution of most active contributors and contributions across most active repos"},
                     "popularRepos": {title: "Contribution patterns on most popular repositories",
                                      description: "Highlights the repartition of rare vs frequent contributors in a given repository"},
-                    "popularRecentRepos": {title: "Contributions received in the past 6 months in the most recently popular repositories"}
+                    "popularRecentRepos": {title: "Contributions received in the past 6 months in the most recently popular repositories"},
+                    "popularRecentCGRepos": {title: "Contributions received in the past 6 months in the most recently popular CG repositories"}
                    };
 
 fetch('graphs.json').then(r => r.json())
@@ -191,12 +191,28 @@ fetch('graphs.json').then(r => r.json())
         }
       }
     });
-    const repoNameMatcher = /^([^-]*)-/;
+
     d3.selectAll('#popularRecentRepos .c3-axis-x .tick text, #popularRepos .c3-axis-x .tick text')
       .each (function (d) {
         const self = d3.select(this);
         const tspans = self.html();
         const text = self.text();
-        self.html("<a xlink:href='https://github.com/" + text.replace(repoNameMatcher, '$1/') + "'>" + tspans +"</a>");
+        self.html("<a xlink:href='https://github.com/" + text + "'>" + tspans +"</a>");
       });
+
+    c3.generate({
+      bindto: "#popularRecentCGRepos",
+      data: {
+        columns: chartdata.popularRecentCGRepos.columns,
+        type: 'bar',
+        groups: [['comments', 'issues', 'PRs']]
+      },
+      color: getColors(['comment', 'issue', 'pull_request']),
+      axis: {
+        x: {
+          type: 'category',
+          categories: chartdata.__sharedata.topRecentCGRepos
+        }
+      }
+    });
   }).catch(console.error.bind(console));
