@@ -211,7 +211,7 @@ fetch('graphs.json').then(r => r.json())
       axis: {
         x: {
           type: 'category',
-          categories: chartdata.__sharedata.topRecentCGRepos
+          categories: chartdata.__shareddata.topRecentCGRepos
         }
       }
     });
