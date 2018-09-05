@@ -14,12 +14,12 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
       nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
     });
 
-    const ossRepos = [/^web-platform-tests/i, /^w3c\/respec/, /^w3c\/webidl2\.js/];
+    const ossRepos = [/^web-platform-tests/i, /^w3c\/respec/, /^w3c\/webidl2\.js/, /IDPF\/epubcheck/];
     const intransitionWGRepos = [/^WebAssembly/i, /^immersive-web/i, /^w3c\/distributed-tracing/, /^w3c\/json-ld/, , /^w3c\/reporting/, /w3c\/wot/, /w3c\/silver/, /w3c\/network-error-logging/, /w3c\/webrtc-quic/, /w3c\/editing/, /w3c\/vc-use-cases/];
-    const igRepos = [/w3c\/sdw/, /w3c\/sealreq/, /w3c\/iip/, /w3c\/media-and-entertainment/];
+    const igRepos = [/w3c\/sdw/, /w3c\/sealreq/, /w3c\/iip/, /w3c\/media-and-entertainment/, /w3c\/i18n-activity/, /w3c\/i18n-drafts/];
     const maintenanceRepos = [/w3c\/media-source/, /^w3c\/webdriver/, /w3c\/activitystreams/, /w3c\/activitypub/];
-    const processRepos = [/^w3ctag\//, /w3c\/w3process/, /w3c\/transitions/, /w3c\/AB/, /w3c\/charter-timed-text/, /w3c\/strategy/, /w3c\/wg-effectiveness/, /w3c\/echidna/, /w3c\/spec-generator/];
-    const siteRepos = [/w3c\/wai-website/, /w3c\/web-roadmaps/, /w3c\/tr-pages/, /w3c\/wai-roles-responsbilities/, /w3c\/bcase/];
+    const processRepos = [/^w3ctag\//, /w3c\/w3process/, /w3c\/transitions/, /w3c\/AB/, /w3c\/charter-timed-text/, /w3c\/strategy/, /w3c\/wg-effectiveness/, /w3c\/echidna/, /w3c\/spec-generator/, /w3c\/tr-design/, /w3c\/specberus/];
+    const siteRepos = [/w3c\/wai-website/, /w3c\/web-roadmaps/, /w3c\/tr-pages/, /w3c\/wai-roles-responsbilities/, /w3c\/wai-bcase/, /w3c\/wai-policies-prototype/];
     const notCGRegExps = ossRepos.concat(intransitionWGRepos).concat(igRepos).concat(maintenanceRepos).concat(processRepos).concat(siteRepos).concat(wgrepos.map(r => new RegExp(r, 'i')));
     const notCG = n => notCGRegExps.some(r => n.match(r));
 
