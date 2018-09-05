@@ -20,7 +20,7 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
     const maintenanceRepos = [/w3c\/media-source/, /^w3c\/webdriver/, /w3c\/activitystreams/, /w3c\/activitypub/];
     const processRepos = [/^w3ctag\//, /w3c\/w3process/, /w3c\/transitions/, /w3c\/AB/, /w3c\/charter-timed-text/, /w3c\/strategy/, /w3c\/wg-effectiveness/, /w3c\/echidna/, /w3c\/spec-generator/];
     const siteRepos = [/w3c\/wai-website/, /w3c\/web-roadmaps/, /w3c\/tr-pages/, /w3c\/wai-roles-responsbilities/, /w3c\/bcase/];
-    const notCGRegExps = ossRepos.concat(intransitionWGRepos).concat(igRepos).concat(processRepos).concat(siteRepos).concat(wgrepos.map(r => new RegExp(r, 'i')));
+    const notCGRegExps = ossRepos.concat(intransitionWGRepos).concat(igRepos).concat(maintenanceRepos).concat(processRepos).concat(siteRepos).concat(wgrepos.map(r => new RegExp(r, 'i')));
     const notCG = n => notCGRegExps.some(r => n.match(r));
 
     const contributorsPerRepo = Object.keys(nonBotContributors).map(contributor => nonBotContributors[contributor].map(a => a.repo).reduce((acc, repo) => { if (!acc[repo]) acc[repo] = 0; acc[repo]++; return acc;}, {}));
