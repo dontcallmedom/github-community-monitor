@@ -192,14 +192,6 @@ fetch('graphs.json').then(r => r.json())
       }
     });
 
-    d3.selectAll('#popularRecentRepos .c3-axis-x .tick text, #popularRepos .c3-axis-x .tick text')
-      .each (function (d) {
-        const self = d3.select(this);
-        const tspans = self.html();
-        const text = self.text();
-        self.html("<a xlink:href='https://github.com/" + text + "'>" + tspans +"</a>");
-      });
-
     c3.generate({
       bindto: "#popularRecentCGRepos",
       data: {
@@ -215,4 +207,14 @@ fetch('graphs.json').then(r => r.json())
         }
       }
     });
+
+    d3.selectAll('#popularRecentCGRepos .c3-axis-x .tick text, #popularRecentRepos .c3-axis-x .tick text, #popularRepos .c3-axis-x .tick text')
+      .each (function (d) {
+        const self = d3.select(this);
+        const tspans = self.html();
+        const text = self.text();
+        self.html("<a xlink:href='https://github.com/" + text + "'>" + tspans +"</a>");
+      });
+
+
   }).catch(console.error.bind(console));
