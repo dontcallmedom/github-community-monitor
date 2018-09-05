@@ -3,15 +3,25 @@ const util = require("util");
 
 Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
              util.promisify(fs.readFile)("repos.json", 'utf-8'),
-             util.promisify(fs.readFile)("bots.json", 'utf-8')
+             util.promisify(fs.readFile)("bots.json", 'utf-8'),
+             util.promisify(fs.readFile)("wg-repos.json", 'utf-8')
             ])
   .then(contents => contents.map(c => JSON.parse(c)))
-  .then(([contributors, repos, bots]) => {
+  .then(([contributors, repos, bots, wgrepos]) => {
     const isNotABot = n => !bots.includes(n) && n !== "ghost";
     const nonBotContributors = {};
     Object.keys(contributors).filter(isNotABot).forEach(c => {
       nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
     });
+
+    const ossRepos = [/^web-platform-tests/i, /^w3c\/respec/, /^w3c\/webidl2\.js/];
+    const intransitionWGRepos = [/^WebAssembly/i, /^immersive-web/i, /^w3c\/distributed-tracing/, /^w3c\/json-ld/, , /^w3c\/reporting/, /w3c\/wot/, /w3c\/silver/, /w3c\/network-error-logging/, /w3c\/webrtc-quic/, /w3c\/editing/, /w3c\/vc-use-cases/];
+    const igRepos = [/w3c\/sdw/, /w3c\/sealreq/, /w3c\/iip/, /w3c\/media-and-entertainment/];
+    const maintenanceRepos = [/w3c\/media-source/, /^w3c\/webdriver/, /w3c\/activitystreams/, /w3c\/activitypub/];
+    const processRepos = [/^w3ctag\//, /w3c\/w3process/, /w3c\/transitions/, /w3c\/AB/, /w3c\/charter-timed-text/, /w3c\/strategy/, /w3c\/wg-effectiveness/, /w3c\/echidna/, /w3c\/spec-generator/];
+    const siteRepos = [/w3c\/wai-website/, /w3c\/web-roadmaps/, /w3c\/tr-pages/, /w3c\/wai-roles-responsbilities/, /w3c\/bcase/];
+    const notCGRegExps = ossRepos.concat(intransitionWGRepos).concat(igRepos).concat(processRepos).concat(siteRepos).concat(wgrepos.map(r => new RegExp(r, 'i')));
+    const notCG = n => notCGRegExps.some(r => n.match(r));
 
     const contributorsPerRepo = Object.keys(nonBotContributors).map(contributor => nonBotContributors[contributor].map(a => a.repo).reduce((acc, repo) => { if (!acc[repo]) acc[repo] = 0; acc[repo]++; return acc;}, {}));
     const repoContributionRanges = {"total": 0, "1": 0, "2-9": 0, "10-29": 0, "30-99": 0, "100+": 0};
@@ -212,6 +222,8 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
                     return acc;
                   }, {});
     const topRecentRepos = Object.keys(repoPerRecentContributions).sort((a,b) => repoPerRecentContributions[b].total - repoPerRecentContributions[a].total).slice(0,40);
+    const topRecentCGRepos = Object.keys(repoPerRecentContributions).filter(n => !notCG(n)).sort((a,b) => repoPerRecentContributions[b].total - repoPerRecentContributions[a].total).slice(0,40);
+
     graphs.popularRecentRepos = {
       columns : [
         ['comments'].concat(topRecentRepos.map(repo => repoPerRecentContributions[repo].comment)),
@@ -220,6 +232,15 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
       ]
     };
     graphs.__shareddata.topRecentRepos = topRecentRepos;
+
+    graphs.popularRecentCGRepos = {
+      columns : [
+          ['comments'].concat(topRecentCGRepos.map(repo => repoPerRecentContributions[repo].comment)),
+          ['issues'].concat(topRecentCGRepos.map(repo => repoPerRecentContributions[repo].issue)),
+          ['PRs'].concat(topRecentCGRepos.map(repo => repoPerRecentContributions[repo].pull_request))
+      ]
+    };
+    graphs.__shareddata.topRecentCGRepos = topRecentCGRepos;
 
     fs.writeFileSync('graphs.json', JSON.stringify(graphs));
   });
