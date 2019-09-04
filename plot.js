@@ -26,8 +26,7 @@ const charts = {"contributions": {title: "Evolution of Github contributions over
                     "distribution": {title: "Distribution of most active contributors and contributions across most active repos"},
                     "popularRepos": {title: "Contribution patterns on most popular repositories",
                                      description: "Highlights the repartition of rare vs frequent contributors in a given repository"},
-                    "popularRecentRepos": {title: "Contributions received in the past 6 months in the most recently popular repositories"},
-                    "popularRecentCGRepos": {title: "Contributions received in the past 6 months in the most recently popular CG repositories"}
+                    "popularRecentRepos": {title: "Contributions received in the past 6 months in the most recently popular repositories"}
                    };
 
 fetch('graphs.json').then(r => r.json())

@@ -1,5 +1,6 @@
 const fs = require("fs");
 const util = require("util");
+const fetch = require("node-fetch");
 
 Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
              util.promisify(fs.readFile)("repos.json", 'utf-8'),
@@ -12,16 +13,8 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
     const nonBotContributors = {};
     Object.keys(contributors).filter(isNotABot).forEach(c => {
       nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
+      recTrackContributors[c] = nonBotContributors[c].filter(contrib => recTrackRepos.includes(contrib.repo));
     });
-
-    const ossRepos = [/^web-platform-tests/i, /^w3c\/respec/, /^w3c\/webidl2\.js/, /IDPF\/epubcheck/, /w3c\/css-validator/];
-    const intransitionWGRepos = [/^WebAssembly/i, /^immersive-web\/webxr/i, /^w3c\/distributed-tracing/, /^w3c\/json-ld/, , /^w3c\/reporting/, /w3c\/wot/, /w3c\/silver/, /w3c\/network-error-logging/, /w3c\/webrtc-quic/, /w3c\/editing/, /w3c\/vc-use-cases/, /w3c\/webpayments-crypto/, /w3c\/webpayments-methods-tokenization/, /w3c\/IndexedDB/, /w3c\trace-context/];
-    const igRepos = [/w3c\/sdw/, /w3c\/sealreq/, /w3c\/iip/, /w3c\/media-and-entertainment/, /w3c\/i18n-activity/, /w3c\/i18n-drafts/, /w3c\/me-media-timed-events/, /w3c\/chinese-ig/];
-    const maintenanceRepos = [/w3c\/media-source/, /^w3c\/webdriver/, /w3c\/activitystreams/, /w3c\/activitypub/];
-    const processRepos = [/^w3ctag\//, /w3c\/w3process/, /w3c\/transitions/, /w3c\/AB/, /w3c\/charter-timed-text/, /w3c\/strategy/, /w3c\/wg-effectiveness/, /w3c\/echidna/, /w3c\/spec-generator/, /w3c\/tr-design/, /w3c\/specberus/, /team-strat/, /w3c\/test-results/, /w3c\/modern-tooling/, /w3c\/wbs-design/, /w3c\/charter-drafts/];
-    const siteRepos = [/w3c\/wai-website/, /w3c\/web-roadmaps/, /w3c\/tr-pages/, /w3c\/wai-roles-responsbilities/, /w3c\/wai-bcase/, /w3c\/wai-policies-prototype/, /w3c\/wai-wcag-quickref/, /w3c\/wai-intro-wcag/, /w3c\/wai-statements/, /w3c\/wai-translations/, /w3c\/WebPlatformWG/];
-    const notCGRegExps = ossRepos.concat(intransitionWGRepos).concat(igRepos).concat(maintenanceRepos).concat(processRepos).concat(siteRepos).concat(wgrepos.map(r => new RegExp(r, 'i')));
-    const notCG = n => notCGRegExps.some(r => n.match(r));
 
     const contributorsPerRepo = Object.keys(nonBotContributors).map(contributor => nonBotContributors[contributor].map(a => a.repo).reduce((acc, repo) => { if (!acc[repo]) acc[repo] = 0; acc[repo]++; return acc;}, {}));
     const repoContributionRanges = {"total": 0, "1": 0, "2-9": 0, "10-29": 0, "30-99": 0, "100+": 0};
@@ -222,7 +215,6 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
                     return acc;
                   }, {});
     const topRecentRepos = Object.keys(repoPerRecentContributions).sort((a,b) => repoPerRecentContributions[b].total - repoPerRecentContributions[a].total).slice(0,40);
-    const topRecentCGRepos = Object.keys(repoPerRecentContributions).filter(n => !notCG(n)).sort((a,b) => repoPerRecentContributions[b].total - repoPerRecentContributions[a].total).slice(0,40);
 
     graphs.popularRecentRepos = {
       columns : [
@@ -232,15 +224,6 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
       ]
     };
     graphs.__shareddata.topRecentRepos = topRecentRepos;
-
-    graphs.popularRecentCGRepos = {
-      columns : [
-          ['comments'].concat(topRecentCGRepos.map(repo => repoPerRecentContributions[repo].comment)),
-          ['issues'].concat(topRecentCGRepos.map(repo => repoPerRecentContributions[repo].issue)),
-          ['PRs'].concat(topRecentCGRepos.map(repo => repoPerRecentContributions[repo].pull_request))
-      ]
-    };
-    graphs.__shareddata.topRecentCGRepos = topRecentCGRepos;
 
     fs.writeFileSync('graphs.json', JSON.stringify(graphs));
   });
