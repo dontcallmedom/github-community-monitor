@@ -5,12 +5,15 @@ const fetch = require("node-fetch");
 Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
              util.promisify(fs.readFile)("repos.json", 'utf-8'),
              util.promisify(fs.readFile)("bots.json", 'utf-8'),
-             util.promisify(fs.readFile)("wg-repos.json", 'utf-8')
+             fetch("https://w3c.github.io/validate-repos/report.json").then(r => r.text())
             ])
   .then(contents => contents.map(c => JSON.parse(c)))
-  .then(([contributors, repos, bots, wgrepos]) => {
+  .then(([contributors, repos, bots, repodata]) => {
     const isNotABot = n => !bots.includes(n) && n !== "ghost";
     const nonBotContributors = {};
+    const recTrackContributors = {};
+    const recTrackRepos = repodata.repos.filter(r => r.w3c && r.w3c["repo-type"] && (r.w3c["repo-type"] === "rec-track" || r.w3c["repo-type"].includes("rec-track"))).map(r => r.owner.login + "/" + r.name);
+
     Object.keys(contributors).filter(isNotABot).forEach(c => {
       nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
       recTrackContributors[c] = nonBotContributors[c].filter(contrib => recTrackRepos.includes(contrib.repo));
@@ -62,6 +65,7 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
       'contributions': {
         columns: [
           ['Contributions'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m).length).reduce((a,b) => a + b, 0))),
+          ['Rec-track contributions'].concat(months.map(m => Object.values(recTrackContributors).map(c => c.filter(a => a.time.slice(0,7) === m).length).reduce((a,b) => a + b, 0))),
           ['Contributions (3 months average)'].concat(months.map((m,i, arr) => {
             if ( i < 2) return null;
             const threeMonths = arr.slice(i - 2, i + 1);
@@ -71,12 +75,23 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
             if ( i < 12) return null;
             const twelveMonths = arr.slice(i - 11, i + 1);
             return Math.round(Object.values(nonBotContributors).map(c => c.filter(a => twelveMonths.includes(a.time.slice(0,7))).length).reduce((a,b) => a + b, 0) / 12);
+          })),
+          ['Rec-track contributions (3 months average)'].concat(months.map((m,i, arr) => {
+            if ( i < 2) return null;
+            const threeMonths = arr.slice(i - 2, i + 1);
+            return Math.round(Object.values(recTrackContributors).map(c => c.filter(a => threeMonths.includes(a.time.slice(0,7))).length).reduce((a,b) => a + b, 0) / 3);
+          })),
+          ['Rec-track contributions (12 months average)'].concat(months.map((m,i, arr) => {
+            if ( i < 12) return null;
+            const twelveMonths = arr.slice(i - 11, i + 1);
+            return Math.round(Object.values(recTrackContributors).map(c => c.filter(a => twelveMonths.includes(a.time.slice(0,7))).length).reduce((a,b) => a + b, 0) / 12);
           }))
         ]
       },
       'prs': {
         columns: [
-          ['Pull Requests'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m && a.type === "pull_request").length).reduce((a,b) => a + b, 0)))
+          ['Pull Requests'].concat(months.map(m => Object.values(nonBotContributors).map(c => c.filter(a => a.time.slice(0,7) === m && a.type === "pull_request").length).reduce((a,b) => a + b, 0))),
+          ['Pull Requests to Rec track repos'].concat(months.map(m => Object.values(recTrackContributors).map(c => c.filter(a => a.time.slice(0,7) === m && a.type === "pull_request").length).reduce((a,b) => a + b, 0)))
           ]
       },
       'contributors': {
