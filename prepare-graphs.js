@@ -57,6 +57,12 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
 
     const months = [...new Set(Object.values(nonBotContributors).map(c => c.map(a => a.time.slice(0,7))).reduce((a,b) => a.concat(b), []))].sort();
 
+    const twelveMonthsAverage = months.map((m,i, arr) => {
+            if ( i < 12) return null;
+            const twelveMonths = arr.slice(i - 11, i + 1);
+            return Math.round(Object.values(nonBotContributors).map(c => c.filter(a => twelveMonths.includes(a.time.slice(0,7))).length).reduce((a,b) => a + b, 0) / 12);
+    });
+
     const graphs = {
       '__shareddata': {
         months,
@@ -71,10 +77,12 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
             const threeMonths = arr.slice(i - 2, i + 1);
             return Math.round(Object.values(nonBotContributors).map(c => c.filter(a => threeMonths.includes(a.time.slice(0,7))).length).reduce((a,b) => a + b, 0) / 3);
           })),
-          ['Contributions (12 months average)'].concat(months.map((m,i, arr) => {
-            if ( i < 12) return null;
-            const twelveMonths = arr.slice(i - 11, i + 1);
-            return Math.round(Object.values(nonBotContributors).map(c => c.filter(a => twelveMonths.includes(a.time.slice(0,7))).length).reduce((a,b) => a + b, 0) / 12);
+          ['Contributions (12 months average)'].concat(twelveMonthsAverage),
+          ['YoY evolution of 12 months average of contributions'].concat(months.map((m,i, arr) => {
+            // skip the first months due to initial sigma growth
+            if ( i < arr.length - 36) return null;
+            const twelveMonthAgo = twelveMonthsAverage[i - 12];
+            return Math.round(10000*(twelveMonthsAverage[i] - twelveMonthAgo)/twelveMonthAgo)/100;
           })),
           ['Rec-track contributions (3 months average)'].concat(months.map((m,i, arr) => {
             if ( i < 2) return null;

@@ -53,10 +53,15 @@ fetch('graphs.json').then(r => r.json())
     });
 
 
-    const buildTimeseries = (id, colors, data) => {
+    const buildTimeseries = (id, colors, data, growthdata) => {
+      const axes = {};
+      if (growthdata) {
+        axes[growthdata] = 'y2';
+      };
       return {
         bindto: id,
         data: {
+          axes,
           x: 'x',
           xFormat: '%Y-%m',
           columns:
@@ -70,7 +75,8 @@ fetch('graphs.json').then(r => r.json())
             tick: {
               format: '%Y-%m'
             }
-          }
+          },
+          y2: {show: !!growthdata, label: '%'}
         }
       };
     };
@@ -78,7 +84,8 @@ fetch('graphs.json').then(r => r.json())
     c3.generate(
       buildTimeseries('#contributions',
                       getColors(['neutral']),
-                      chartdata.contributions.columns
+                      chartdata.contributions.columns,
+                      'YoY evolution of 12 months average of contributions'
                      ));
     c3.generate(
       buildTimeseries('#prs',
@@ -190,30 +197,6 @@ fetch('graphs.json').then(r => r.json())
         }
       }
     });
-
-    c3.generate({
-      bindto: "#popularRecentCGRepos",
-      data: {
-        columns: chartdata.popularRecentCGRepos.columns,
-        type: 'bar',
-        groups: [['comments', 'issues', 'PRs']]
-      },
-      color: getColors(['comment', 'issue', 'pull_request']),
-      axis: {
-        x: {
-          type: 'category',
-          categories: chartdata.__shareddata.topRecentCGRepos
-        }
-      }
-    });
-
-    d3.selectAll('#popularRecentCGRepos .c3-axis-x .tick text, #popularRecentRepos .c3-axis-x .tick text, #popularRepos .c3-axis-x .tick text')
-      .each (function (d) {
-        const self = d3.select(this);
-        const tspans = self.html();
-        const text = self.text();
-        self.html("<a xlink:href='https://github.com/" + text + "'>" + tspans +"</a>");
-      });
 
 
   }).catch(console.error.bind(console));
