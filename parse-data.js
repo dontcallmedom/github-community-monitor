@@ -7,11 +7,11 @@ const comments = {};
 const contributors = {};
 const repos = new Set();
 
-const add_contributors = function (list, type, until) {
+const add_contributors = function (list, type) {
   if (!list.length) return;
   const repo = list[0].url.split('https://api.github.com/repos/')[1].split("/").slice(0,2).join("/");
   repos.add(repo);
-  list.filter(item => item.created_at < until + "T00:00:00Z").forEach(item => {
+  list.forEach(item => {
     const login = item.user.login;
     if (!contributors[login]) {
       contributors[login] =  [];
@@ -42,7 +42,7 @@ const loadDir = async dirPath => {
       .catch(err => { console.error("Failed parsing " + path + ": " + err);})
       .then(data => {
         const [,, datatype] = path.match(/^([a-zA-Z0-9]*-.*)\.([^\.]*)-[0-9]{8}-[0-9]{4}\.json$/);
-        const repo = add_contributors(data, datatype, process.argv[4]);
+        const repo = add_contributors(data, datatype);
         if (!repo) return;
         switch(datatype) {
         case "issues":

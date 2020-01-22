@@ -2,6 +2,11 @@ const fs = require("fs");
 const util = require("util");
 const fetch = require("node-fetch");
 
+const beginningOfMonth = new Date();
+beginningOfMonth.setDate(1);
+
+const until = process.argv[2] ? process.argv[2] : beginningOfMonth.toJSON().slice(0,10);
+
 Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
              util.promisify(fs.readFile)("repos.json", 'utf-8'),
              util.promisify(fs.readFile)("bots.json", 'utf-8'),
@@ -14,10 +19,14 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
     const recTrackContributors = {};
     const recTrackRepos = repodata.repos.filter(r => r.w3c && r.w3c["repo-type"] && (r.w3c["repo-type"] === "rec-track" || r.w3c["repo-type"].includes("rec-track"))).map(r => r.owner.login + "/" + r.name);
 
-    Object.keys(contributors).filter(isNotABot).forEach(c => {
-      nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
-      recTrackContributors[c] = nonBotContributors[c].filter(contrib => recTrackRepos.includes(contrib.repo));
-    });
+    Object.keys(contributors)
+      .filter(isNotABot).forEach(c => {
+        const contributions = contributors[c].filter(x => x.time < until + "T00:00:00Z").sort((a,b) => a.time.localeCompare(b.time));
+        if (contributions.length) {
+          nonBotContributors[c] = contributions;
+          recTrackContributors[c] = contributions.filter(contrib => recTrackRepos.includes(contrib.repo));
+        }
+      });
 
     const contributorsPerRepo = Object.keys(nonBotContributors).map(contributor => nonBotContributors[contributor].map(a => a.repo).reduce((acc, repo) => { if (!acc[repo]) acc[repo] = 0; acc[repo]++; return acc;}, {}));
     const repoContributionRanges = {"total": 0, "1": 0, "2-9": 0, "10-29": 0, "30-99": 0, "100+": 0};
