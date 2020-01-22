@@ -1,6 +1,11 @@
 const fs = require("fs");
 const util = require("util");
 
+const beginningOfMonth = new Date();
+beginningOfMonth.setDate(1);
+
+const until = process.argv[2] ? process.argv[2] : beginningOfMonth.toJSON().slice(0,10);
+
 Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
              util.promisify(fs.readFile)("repos.json", 'utf-8'),
              util.promisify(fs.readFile)("bots.json", 'utf-8'),
@@ -10,9 +15,17 @@ Promise.all([util.promisify(fs.readFile)("contributors.json", 'utf-8'),
   .then(([contributors, repos, bots, wgrepos]) => {
     const isNotABot = n => !bots.includes(n) && n !== "ghost";
     const nonBotContributors = {};
-    Object.keys(contributors).filter(isNotABot).forEach(c => {
-      nonBotContributors[c] = contributors[c].slice().sort((a,b) => a.time.localeCompare(b.time));
-    });
+    const recTrackContributors = {};
+    const recTrackRepos = repodata.repos.filter(r => r.w3c && r.w3c["repo-type"] && (r.w3c["repo-type"] === "rec-track" || r.w3c["repo-type"].includes("rec-track"))).map(r => r.owner.login + "/" + r.name);
+
+    Object.keys(contributors)
+      .filter(isNotABot).forEach(c => {
+        const contributions = contributors[c].filter(x => x.time < until + "T00:00:00Z").sort((a,b) => a.time.localeCompare(b.time));
+        if (contributions.length) {
+          nonBotContributors[c] = contributions;
+          recTrackContributors[c] = contributions.filter(contrib => recTrackRepos.includes(contrib.repo));
+        }
+      });
 
     const ossRepos = [/^web-platform-tests/i, /^w3c\/respec/, /^w3c\/webidl2\.js/, /IDPF\/epubcheck/, /w3c\/css-validator/];
     const intransitionWGRepos = [/^WebAssembly/i, /^immersive-web/i, /^w3c\/distributed-tracing/, /^w3c\/json-ld/, , /^w3c\/reporting/, /w3c\/wot/, /w3c\/silver/, /w3c\/network-error-logging/, /w3c\/webrtc-quic/, /w3c\/editing/, /w3c\/vc-use-cases/, /w3c\/webpayments-crypto/];
