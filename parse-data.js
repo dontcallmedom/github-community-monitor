@@ -20,7 +20,7 @@ const add_contributors = function (list, type) {
     if (type == "issues") {
       activity = item.pull_request ? "pull_request": "issue";
     }
-    contributors[login] = contributors[login].concat([{type: activity, repo, time: item.created_at}]);
+    contributors[login] = contributors[login].concat([{type: activity, repo, time: item.created_at, link: item.html_url}]);
   });
   return repo;
 };
