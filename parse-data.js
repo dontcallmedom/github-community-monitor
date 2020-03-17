@@ -26,11 +26,11 @@ const add_contributors = function (list, type) {
 };
 
 const extract_issue = function(i) {
-  return {href: i.html_url, user: i.user.login, time: i.created_at, state: i.state, comments: i.comments};
+  return {href: i.html_url, user: i.user.login, time: i.created_at, state: i.state, comments: i.comments, reactions: i.reactions, title: i.title};
 };
 
 const extract_comment = function(i) {
-  return {href: i.html_url, user: i.user.login, time: i.created_at};
+  return {href: i.html_url, user: i.user.login, time: i.created_at, reactions: i.reactions};
 };
 
 
