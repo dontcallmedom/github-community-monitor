@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("graceful-fs");
 const util = require("util");
 
 const issues = {};
@@ -25,8 +25,8 @@ const add_contributors = function (list, type) {
   return repo;
 };
 
-const extract_issue = function(i) {
-  return {href: i.html_url, user: i.user.login, time: i.created_at, state: i.state, comments: i.comments};
+const extract_issue = comments => function(i) {
+  return {href: i.html_url, user: i.user.login, time: i.created_at, state: i.state, comments: comments.filter(c => c.issue_url === i.url).map(extract_comment), closed_at: i.closed_at};
 };
 
 const extract_comment = function(i) {
@@ -34,20 +34,26 @@ const extract_comment = function(i) {
 };
 
 
+const loadComments = async path => {
+  return util.promisify(fs.readFile)(path.replace(/\.issues-202/, '.comments-202'), 'utf-8')
+    .then(JSON.parse);
+}
+
 const loadDir = async dirPath => {
   const files = await util.promisify(fs.readdir)(dirPath);
   return Promise.all(files.map(
     path => util.promisify(fs.readFile)(dirPath + "/" + path, 'utf-8')
       .then(JSON.parse)
       .catch(err => { console.error("Failed parsing " + path + ": " + err);})
-      .then(data => {
+      .then(async data => {
         const [,, datatype] = path.match(/^([a-zA-Z0-9]*-.*)\.([^\.]*)-[0-9]{8}-[0-9]{4}\.json$/);
         const repo = add_contributors(data, datatype);
         if (!repo) return;
         switch(datatype) {
         case "issues":
-          issues[repo] = data.filter(i => !i.pull_request).map(extract_issue);
-          pull_requests[repo] = data.filter(i => !!i.pull_request).map(extract_issue);
+          const issueComments = await loadComments(dirPath + "/" + path);
+          issues[repo] = data.filter(i => !i.pull_request).map(extract_issue(issueComments));
+          pull_requests[repo] = data.filter(i => !!i.pull_request).map(extract_issue(issueComments));
           break;
         case "commit-comments":
         case "comments":
