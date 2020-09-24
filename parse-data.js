@@ -1,5 +1,6 @@
 const fs = require("graceful-fs");
 const util = require("util");
+const fetch = require("node-fetch");
 
 const issues = {};
 const pull_requests = {};
@@ -39,8 +40,9 @@ const loadComments = async path => {
     .then(JSON.parse);
 }
 
-const loadDir = async dirPath => {
+const loadDir = async (dirPath, repodata) => {
   const files = await util.promisify(fs.readdir)(dirPath);
+  const relevantRepos = Object.values(repodata.groups).map(wg => wg.repos.filter(r => r.hasRecTrack).map(r => r.fullName)).flat();
   return Promise.all(files.map(
     path => util.promisify(fs.readFile)(dirPath + "/" + path, 'utf-8')
       .then(JSON.parse)
@@ -49,6 +51,8 @@ const loadDir = async dirPath => {
         const [,, datatype] = path.match(/^([a-zA-Z0-9]*-.*)\.([^\.]*)-[0-9]{8}-[0-9]{4}\.json$/);
         const repo = add_contributors(data, datatype);
         if (!repo) return;
+        // For now, we only run more advanced issue analysis on rec track repos
+        if (!relevantRepos.includes(repo)) return;
         switch(datatype) {
         case "issues":
           const issueComments = await loadComments(dirPath + "/" + path);
@@ -71,7 +75,8 @@ const saveJSON = function (path, data) {
   fs.writeFileSync(process.argv[3] + "/" + path, JSON.stringify(data, null, 2));
 }
 
-loadDir(process.argv[2]).then(() => {
+fetch("https://w3c.github.io/validate-repos/report.json").then(r => r.json())
+  .then (repodata => loadDir(process.argv[2], repodata)).then(() => {
   saveJSON("repos.json", [...repos]);
   saveJSON("issues.json", issues);
   saveJSON("pull_requests.json", pull_requests);
