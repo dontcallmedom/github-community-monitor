@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "d3": "^6.2.0",
+    "d3-boxplot": "^0.7.6",
+    "graceful-fs": "^4.2.4",
+    "node-fetch": "^2.6.1",
+    "octokit": "^1.0.0-hello-world"
+  },
+  "postinstall": {}
+}
