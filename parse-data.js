@@ -21,17 +21,17 @@ const add_contributors = function (list, type) {
     if (type == "issues") {
       activity = item.pull_request ? "pull_request": "issue";
     }
-    contributors[login] = contributors[login].concat([{type: activity, repo, time: item.created_at}]);
+    contributors[login] = contributors[login].concat([{type: activity, repo, time: item.created_at, link: item.html_url}]);
   });
   return repo;
 };
 
-const extract_issue = comments => function(i) {
-  return {href: i.html_url, user: i.user.login, time: i.created_at, state: i.state, comments: comments.filter(c => c.issue_url === i.url).map(extract_comment), closed_at: i.closed_at};
+const extract_issue = function(i) {
+  return {href: i.html_url, user: i.user.login, time: i.created_at, state: i.state, comments: comments.filter(c => c.issue_url === i.url).map(extract_comment), closed_at: i.closed_at, reactions: i.reactions, title: i.title};
 };
 
 const extract_comment = function(i) {
-  return {href: i.html_url, user: i.user.login, time: i.created_at};
+  return {href: i.html_url, user: i.user.login, time: i.created_at, reactions: i.reactions};
 };
 
 
