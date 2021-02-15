@@ -26,7 +26,7 @@ const add_contributors = function (list, type) {
   return repo;
 };
 
-const extract_issue = function(i) {
+const extract_issue = comments => function(i) {
   return {href: i.html_url, user: i.user.login, time: i.created_at, state: i.state, comments: comments.filter(c => c.issue_url === i.url).map(extract_comment), closed_at: i.closed_at, reactions: i.reactions, title: i.title};
 };
 
@@ -56,8 +56,12 @@ const loadDir = async (dirPath, repodata) => {
         switch(datatype) {
         case "issues":
           const issueComments = await loadComments(dirPath + "/" + path);
-          issues[repo] = data.filter(i => !i.pull_request).map(extract_issue(issueComments));
-          pull_requests[repo] = data.filter(i => !!i.pull_request).map(extract_issue(issueComments));
+          try {
+            issues[repo] = data.filter(i => !i.pull_request).map(extract_issue(issueComments));
+            pull_requests[repo] = data.filter(i => !!i.pull_request).map(extract_issue(issueComments));
+          } catch (e) {
+            console.error("failed to extract issues from " + path + ": " + e + JSON.stringify(e.stack, null, 2));
+          }
           break;
         case "commit-comments":
         case "comments":
