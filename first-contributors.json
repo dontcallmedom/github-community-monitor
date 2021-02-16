@@ -1,84 +1,6 @@
 {
-  "since": "2021-01-15T00:00:21.208Z",
+  "since": "2021-01-16T00:00:46.108Z",
   "contributors": {
-    "mrinalwadhwa": {
-      "type": "comment",
-      "repo": "w3c/did-spec-registries",
-      "time": "2021-01-15T00:51:30Z",
-      "link": "https://github.com/w3c/did-spec-registries/issues/223#issuecomment-760571894"
-    },
-    "jasonlong": {
-      "type": "comment",
-      "repo": "w3c/did-spec-registries",
-      "time": "2021-01-15T01:34:25Z",
-      "link": "https://github.com/w3c/did-spec-registries/issues/210#issuecomment-760585896"
-    },
-    "kjperkin": {
-      "type": "comment",
-      "repo": "WICG/file-system-access",
-      "time": "2021-01-15T02:16:43Z",
-      "link": "https://github.com/WICG/file-system-access/issues/243#issuecomment-760599362"
-    },
-    "ProPuke": {
-      "type": "pull_request",
-      "repo": "immersive-web/webxr-input-profiles",
-      "time": "2021-01-15T02:45:59Z",
-      "link": "https://github.com/immersive-web/webxr-input-profiles/pull/187"
-    },
-    "delta11": {
-      "type": "issue",
-      "repo": "w3c/css-validator",
-      "time": "2021-01-15T12:12:24Z",
-      "link": "https://github.com/w3c/css-validator/issues/289"
-    },
-    "zBugi": {
-      "type": "issue",
-      "repo": "w3c/webcrypto",
-      "time": "2021-01-15T12:14:05Z",
-      "link": "https://github.com/w3c/webcrypto/issues/247"
-    },
-    "zeshhaan": {
-      "type": "comment",
-      "repo": "w3c/respec",
-      "time": "2021-01-15T12:27:59Z",
-      "link": "https://github.com/w3c/respec/issues/1357#issuecomment-760913749"
-    },
-    "rubenw": {
-      "type": "comment",
-      "repo": "w3c/data-shapes",
-      "time": "2021-01-15T14:55:10Z",
-      "link": "https://github.com/w3c/data-shapes/issues/130#issuecomment-760988500"
-    },
-    "CJSparrow": {
-      "type": "comment",
-      "repo": "w3c/webdriver",
-      "time": "2021-01-15T16:13:54Z",
-      "link": "https://github.com/w3c/webdriver/issues/1450#issuecomment-761035059"
-    },
-    "brycetham": {
-      "type": "comment",
-      "repo": "WebAssembly/content-security-policy",
-      "time": "2021-01-15T16:46:40Z",
-      "link": "https://github.com/WebAssembly/content-security-policy/issues/7#issuecomment-761053178"
-    },
-    "gregalchin": {
-      "type": "comment",
-      "repo": "w3c/epub-specs",
-      "time": "2021-01-15T22:40:35Z",
-      "link": "https://github.com/w3c/epub-specs/pull/1469#issuecomment-761234780"
-    },
-    "nkronlage": {
-      "type": "comment",
-      "repo": "immersive-web/layers",
-      "time": "2021-01-15T23:14:55Z",
-      "link": "https://github.com/immersive-web/layers/issues/224#issuecomment-761246708"
-    },
-    "rafailyk": {
-      "type": "comment",
-      "repo": "w3c/IntersectionObserver",
-      "time": "2021-01-15T23:16:47Z",
-      "link": "https://github.com/w3c/IntersectionObserver/issues/260#issuecomment-761247372"
-    },
     "erynofwales": {
       "type": "comment",
       "repo": "WICG/sms-one-time-codes",
@@ -835,12 +757,6 @@
       "time": "2021-02-06T17:18:42Z",
       "link": "https://github.com/w3c/webrtc-pc/issues/2622#issuecomment-774510134"
     },
-    "Hazmatron7": {
-      "type": "issue",
-      "repo": "WebAudio/web-audio-api-v2",
-      "time": "2021-02-07T04:07:01Z",
-      "link": "https://github.com/WebAudio/web-audio-api-v2/issues/117"
-    },
     "FlxMgdnz": {
       "type": "issue",
       "repo": "w3c/webauthn",
@@ -1021,12 +937,6 @@
       "time": "2021-02-12T08:00:25Z",
       "link": "https://github.com/privacycg/private-click-measurement/issues/66"
     },
-    "andrefcdias": {
-      "type": "pull_request",
-      "repo": "WICG/open-ui",
-      "time": "2021-02-12T12:24:52Z",
-      "link": "https://github.com/WICG/open-ui/pull/264"
-    },
     "JuliaSang": {
       "type": "comment",
       "repo": "w3c/w3c-website-redesign-documentation",
@@ -1099,11 +1009,29 @@
       "time": "2021-02-14T09:40:26Z",
       "link": "https://github.com/w3c/webdriver-bidi/issues/87"
     },
-    "TalyahAtUXAccess": {
+    "regina-henschel": {
       "type": "issue",
-      "repo": "w3c/silver",
-      "time": "2021-02-14T11:07:38Z",
-      "link": "https://github.com/w3c/silver/issues/279"
+      "repo": "w3c/csswg-drafts",
+      "time": "2021-02-14T17:05:47Z",
+      "link": "https://github.com/w3c/csswg-drafts/issues/5993"
+    },
+    "rperez030": {
+      "type": "issue",
+      "repo": "w3c/wai-curricula",
+      "time": "2021-02-14T19:36:42Z",
+      "link": "https://github.com/w3c/wai-curricula/issues/337"
+    },
+    "tombigel": {
+      "type": "comment",
+      "repo": "w3c/csswg-drafts",
+      "time": "2021-02-15T10:59:53Z",
+      "link": "https://github.com/w3c/csswg-drafts/issues/5796#issuecomment-779142789"
+    },
+    "kotavy": {
+      "type": "comment",
+      "repo": "immersive-web/webvr-polyfill",
+      "time": "2021-02-15T14:50:24Z",
+      "link": "https://github.com/immersive-web/webvr-polyfill/issues/201#issuecomment-779270260"
     }
   }
 }
