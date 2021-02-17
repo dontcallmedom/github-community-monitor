@@ -1,36 +1,6 @@
 {
-  "since": "2021-01-16T00:00:46.108Z",
+  "since": "2021-01-17T00:00:11.105Z",
   "contributors": {
-    "erynofwales": {
-      "type": "comment",
-      "repo": "WICG/sms-one-time-codes",
-      "time": "2021-01-16T01:11:15Z",
-      "link": "https://github.com/WICG/sms-one-time-codes/issues/4#issuecomment-761281590"
-    },
-    "aqrit": {
-      "type": "comment",
-      "repo": "WebAssembly/simd",
-      "time": "2021-01-16T02:33:03Z",
-      "link": "https://github.com/WebAssembly/simd/issues/6#issuecomment-761297229"
-    },
-    "tjwrona1992": {
-      "type": "comment",
-      "repo": "w3c/musicxml",
-      "time": "2021-01-16T02:56:28Z",
-      "link": "https://github.com/w3c/musicxml/pull/284#issuecomment-761300278"
-    },
-    "youk": {
-      "type": "comment",
-      "repo": "WICG/file-system-access",
-      "time": "2021-01-16T11:06:26Z",
-      "link": "https://github.com/WICG/file-system-access/issues/262#issuecomment-761545132"
-    },
-    "anthony-de-jong": {
-      "type": "issue",
-      "repo": "WebAudio/web-midi-api",
-      "time": "2021-01-16T14:20:52Z",
-      "link": "https://github.com/WebAudio/web-midi-api/issues/216"
-    },
     "yuhonglin": {
       "type": "pull_request",
       "repo": "WICG/handwriting-recognition",
@@ -1032,6 +1002,24 @@
       "repo": "immersive-web/webvr-polyfill",
       "time": "2021-02-15T14:50:24Z",
       "link": "https://github.com/immersive-web/webvr-polyfill/issues/201#issuecomment-779270260"
+    },
+    "Wawa27": {
+      "type": "pull_request",
+      "repo": "gpuweb/types",
+      "time": "2021-02-15T16:27:20Z",
+      "link": "https://github.com/gpuweb/types/pull/45"
+    },
+    "canove": {
+      "type": "comment",
+      "repo": "w3c/badging",
+      "time": "2021-02-16T00:42:10Z",
+      "link": "https://github.com/w3c/badging/issues/64#issuecomment-779513195"
+    },
+    "mircerlancerous": {
+      "type": "comment",
+      "repo": "w3c/ServiceWorker",
+      "time": "2021-02-16T02:26:39Z",
+      "link": "https://github.com/w3c/ServiceWorker/issues/1188#issuecomment-779541025"
     }
   }
 }
