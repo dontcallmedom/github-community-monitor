@@ -1,138 +1,6 @@
 {
-  "since": "2021-02-04T00:00:54.167Z",
+  "since": "2021-02-08T00:00:51.537Z",
   "contributors": {
-    "Cavitt": {
-      "type": "comment",
-      "repo": "w3c/webcrypto",
-      "time": "2021-02-04T01:58:22Z",
-      "link": "https://github.com/w3c/webcrypto/issues/73#issuecomment-772966141"
-    },
-    "AndersDJohnson": {
-      "type": "pull_request",
-      "repo": "WICG/conversion-measurement-api",
-      "time": "2021-02-04T03:22:55Z",
-      "link": "https://github.com/WICG/conversion-measurement-api/pull/104"
-    },
-    "Electrovia": {
-      "type": "issue",
-      "repo": "w3c/manifest",
-      "time": "2021-02-04T09:03:59Z",
-      "link": "https://github.com/w3c/manifest/issues/951"
-    },
-    "tliawi": {
-      "type": "issue",
-      "repo": "w3c/aria-practices",
-      "time": "2021-02-04T12:01:27Z",
-      "link": "https://github.com/w3c/aria-practices/issues/1750"
-    },
-    "rowanG077": {
-      "type": "issue",
-      "repo": "WebAssembly/binaryen",
-      "time": "2021-02-04T12:38:22Z",
-      "link": "https://github.com/WebAssembly/binaryen/issues/3544"
-    },
-    "NeerajChouksey": {
-      "type": "issue",
-      "repo": "w3c/aria",
-      "time": "2021-02-04T13:56:32Z",
-      "link": "https://github.com/w3c/aria/issues/1392"
-    },
-    "tsabolov": {
-      "type": "comment",
-      "repo": "w3c/did-core",
-      "time": "2021-02-04T15:22:49Z",
-      "link": "https://github.com/w3c/did-core/commit/ca68476df482286d0ba5fa82643dfa294fce718d#commitcomment-46750217"
-    },
-    "ctwhome": {
-      "type": "comment",
-      "repo": "WICG/file-system-access",
-      "time": "2021-02-04T15:57:58Z",
-      "link": "https://github.com/WICG/file-system-access/issues/246#issuecomment-773414223"
-    },
-    "brutzman": {
-      "type": "comment",
-      "repo": "WebAudio/web-audio-api-v2",
-      "time": "2021-02-04T18:02:48Z",
-      "link": "https://github.com/WebAudio/web-audio-api-v2/issues/40#issuecomment-773499691"
-    },
-    "antvaset": {
-      "type": "pull_request",
-      "repo": "w3c/pronunciation",
-      "time": "2021-02-04T22:02:48Z",
-      "link": "https://github.com/w3c/pronunciation/pull/71"
-    },
-    "haardikk21": {
-      "type": "comment",
-      "repo": "w3c/did-test-suite",
-      "time": "2021-02-05T00:15:29Z",
-      "link": "https://github.com/w3c/did-test-suite/pull/20#issuecomment-773689363"
-    },
-    "jack1232": {
-      "type": "issue",
-      "repo": "gpuweb/gpuweb",
-      "time": "2021-02-05T03:47:29Z",
-      "link": "https://github.com/gpuweb/gpuweb/issues/1417"
-    },
-    "SteveCastle": {
-      "type": "comment",
-      "repo": "schemaorg/schemaorg",
-      "time": "2021-02-05T04:08:08Z",
-      "link": "https://github.com/schemaorg/schemaorg/issues/2646#issuecomment-773773257"
-    },
-    "x-strong": {
-      "type": "comment",
-      "repo": "w3c/csswg-drafts",
-      "time": "2021-02-05T09:10:51Z",
-      "link": "https://github.com/w3c/csswg-drafts/issues/2011#issuecomment-773900703"
-    },
-    "beverly-anaele": {
-      "type": "issue",
-      "repo": "w3c/silver",
-      "time": "2021-02-05T14:56:58Z",
-      "link": "https://github.com/w3c/silver/issues/271"
-    },
-    "basvandijk": {
-      "type": "pull_request",
-      "repo": "WebAssembly/wabt",
-      "time": "2021-02-05T16:00:00Z",
-      "link": "https://github.com/WebAssembly/wabt/pull/1602"
-    },
-    "foomin10": {
-      "type": "issue",
-      "repo": "w3c/jlreq",
-      "time": "2021-02-05T18:07:51Z",
-      "link": "https://github.com/w3c/jlreq/issues/253"
-    },
-    "fischerbach": {
-      "type": "issue",
-      "repo": "WICG/floc",
-      "time": "2021-02-05T20:21:32Z",
-      "link": "https://github.com/WICG/floc/issues/41"
-    },
-    "adambenali": {
-      "type": "issue",
-      "repo": "WebAssembly/wabt",
-      "time": "2021-02-05T21:08:12Z",
-      "link": "https://github.com/WebAssembly/wabt/issues/1603"
-    },
-    "workingjubilee": {
-      "type": "comment",
-      "repo": "WebAssembly/simd",
-      "time": "2021-02-06T08:58:47Z",
-      "link": "https://github.com/WebAssembly/simd/issues/443#issuecomment-774428526"
-    },
-    "nztyrone36": {
-      "type": "comment",
-      "repo": "w3c/webrtc-pc",
-      "time": "2021-02-06T17:18:42Z",
-      "link": "https://github.com/w3c/webrtc-pc/issues/2622#issuecomment-774510134"
-    },
-    "FlxMgdnz": {
-      "type": "issue",
-      "repo": "w3c/webauthn",
-      "time": "2021-02-07T10:21:04Z",
-      "link": "https://github.com/w3c/webauthn/issues/1563"
-    },
     "ermi-ltd": {
       "type": "comment",
       "repo": "w3c/coga",
@@ -264,12 +132,6 @@
       "repo": "privacycg/proposals",
       "time": "2021-02-11T17:03:20Z",
       "link": "https://github.com/privacycg/proposals/issues/10#issuecomment-777644371"
-    },
-    "afung-sharethis": {
-      "type": "issue",
-      "repo": "WICG/turtledove",
-      "time": "2021-02-11T18:35:33Z",
-      "link": "https://github.com/WICG/turtledove/issues/112"
     },
     "joelodom": {
       "type": "issue",
@@ -475,12 +337,6 @@
       "time": "2021-02-19T08:17:23Z",
       "link": "https://github.com/w3c/sealreq/issues/46#issuecomment-781913496"
     },
-    "alflennik": {
-      "type": "comment",
-      "repo": "w3c/aria-at",
-      "time": "2021-02-19T16:25:44Z",
-      "link": "https://github.com/w3c/aria-at/issues/167#issuecomment-782182837"
-    },
     "MarieScibids": {
       "type": "issue",
       "repo": "WICG/turtledove",
@@ -540,12 +396,6 @@
       "repo": "w3c/wcag",
       "time": "2021-02-22T19:28:54Z",
       "link": "https://github.com/w3c/wcag/issues/1544#issuecomment-783616598"
-    },
-    "chrislachance": {
-      "type": "issue",
-      "repo": "w3c/csswg-drafts",
-      "time": "2021-02-22T23:16:35Z",
-      "link": "https://github.com/w3c/csswg-drafts/issues/6034"
     },
     "DrewNeilson": {
       "type": "comment",
@@ -673,12 +523,6 @@
       "time": "2021-02-25T14:07:14Z",
       "link": "https://github.com/WICG/serial/issues/124"
     },
-    "RLemonnierScibids": {
-      "type": "issue",
-      "repo": "WICG/turtledove",
-      "time": "2021-02-25T15:13:48Z",
-      "link": "https://github.com/WICG/turtledove/issues/125"
-    },
     "danhickman": {
       "type": "comment",
       "repo": "schemaorg/schemaorg",
@@ -739,12 +583,6 @@
       "time": "2021-02-26T17:29:29Z",
       "link": "https://github.com/w3c/csswg-drafts/issues/5272#issuecomment-786785976"
     },
-    "darionco": {
-      "type": "pull_request",
-      "repo": "gpuweb/types",
-      "time": "2021-02-26T20:23:24Z",
-      "link": "https://github.com/gpuweb/types/pull/57"
-    },
     "joeshearer": {
       "type": "issue",
       "repo": "w3c/silver",
@@ -781,11 +619,11 @@
       "time": "2021-02-28T03:20:50Z",
       "link": "https://github.com/WebAudio/web-audio-api/issues/1164#issuecomment-787250819"
     },
-    "jtenner": {
+    "byersdz": {
       "type": "comment",
-      "repo": "WebAssembly/WASI",
-      "time": "2021-02-28T13:51:38Z",
-      "link": "https://github.com/WebAssembly/WASI/issues/402#issuecomment-787455658"
+      "repo": "w3c/gamepad",
+      "time": "2021-02-28T18:41:23Z",
+      "link": "https://github.com/w3c/gamepad/pull/112#issuecomment-787500041"
     },
     "hsalamat": {
       "type": "issue",
@@ -798,6 +636,258 @@
       "repo": "WICG/trust-token-api",
       "time": "2021-02-28T21:24:33Z",
       "link": "https://github.com/WICG/trust-token-api/pull/56"
+    },
+    "tomi-msft": {
+      "type": "pull_request",
+      "repo": "WICG/open-ui",
+      "time": "2021-03-01T09:17:06Z",
+      "link": "https://github.com/WICG/open-ui/pull/273"
+    },
+    "baldwin47": {
+      "type": "comment",
+      "repo": "w3c/epub-specs",
+      "time": "2021-03-01T14:37:41Z",
+      "link": "https://github.com/w3c/epub-specs/issues/1542#issuecomment-787997183"
+    },
+    "rafaelcout": {
+      "type": "issue",
+      "repo": "gpuweb/gpuweb",
+      "time": "2021-03-01T15:43:18Z",
+      "link": "https://github.com/gpuweb/gpuweb/issues/1475"
+    },
+    "KeldaAnders": {
+      "type": "issue",
+      "repo": "WICG/privacy-preserving-ads",
+      "time": "2021-03-01T19:40:35Z",
+      "link": "https://github.com/WICG/privacy-preserving-ads/issues/3"
+    },
+    "david-bakker": {
+      "type": "issue",
+      "repo": "w3c/vc-imp-guide",
+      "time": "2021-03-02T11:02:56Z",
+      "link": "https://github.com/w3c/vc-imp-guide/issues/59"
+    },
+    "kyosheek": {
+      "type": "comment",
+      "repo": "w3c/csswg-drafts",
+      "time": "2021-03-02T12:44:18Z",
+      "link": "https://github.com/w3c/csswg-drafts/issues/3027#issuecomment-788882033"
+    },
+    "mark-watson": {
+      "type": "issue",
+      "repo": "w3c/rdf-star",
+      "time": "2021-03-02T21:47:24Z",
+      "link": "https://github.com/w3c/rdf-star/issues/119"
+    },
+    "Qiweih": {
+      "type": "issue",
+      "repo": "immersive-web/webxr",
+      "time": "2021-03-03T01:22:14Z",
+      "link": "https://github.com/immersive-web/webxr/issues/1176"
+    },
+    "edulemasson": {
+      "type": "issue",
+      "repo": "w3c/rdf-star",
+      "time": "2021-03-03T02:35:50Z",
+      "link": "https://github.com/w3c/rdf-star/issues/120"
+    },
+    "ahmad2smile": {
+      "type": "comment",
+      "repo": "WebAssembly/spec",
+      "time": "2021-03-03T16:27:53Z",
+      "link": "https://github.com/WebAssembly/spec/issues/571#issuecomment-789845708"
+    },
+    "hananbeer": {
+      "type": "issue",
+      "repo": "immersive-web/webxr-input-profiles",
+      "time": "2021-03-03T17:29:49Z",
+      "link": "https://github.com/immersive-web/webxr-input-profiles/issues/192"
+    },
+    "alan345": {
+      "type": "comment",
+      "repo": "schemaorg/schemaorg",
+      "time": "2021-03-03T20:55:24Z",
+      "link": "https://github.com/schemaorg/schemaorg/issues/635#issuecomment-790048516"
+    },
+    "chruxin": {
+      "type": "pull_request",
+      "repo": "WICG/pwa-url-handler",
+      "time": "2021-03-04T00:27:35Z",
+      "link": "https://github.com/WICG/pwa-url-handler/pull/24"
+    },
+    "Julio-Guerra": {
+      "type": "comment",
+      "repo": "WebAssembly/WASI",
+      "time": "2021-03-04T09:26:26Z",
+      "link": "https://github.com/WebAssembly/WASI/issues/296#issuecomment-790467731"
+    },
+    "GBogdahn": {
+      "type": "issue",
+      "repo": "w3c/musicxml",
+      "time": "2021-03-04T10:59:56Z",
+      "link": "https://github.com/w3c/musicxml/issues/388"
+    },
+    "helixd-2k18": {
+      "type": "issue",
+      "repo": "WebAssembly/simd",
+      "time": "2021-03-04T13:27:31Z",
+      "link": "https://github.com/WebAssembly/simd/issues/488"
+    },
+    "boris-petrov": {
+      "type": "issue",
+      "repo": "w3c/css-validator",
+      "time": "2021-03-04T13:50:26Z",
+      "link": "https://github.com/w3c/css-validator/issues/294"
+    },
+    "vid": {
+      "type": "comment",
+      "repo": "w3c/EasierRDF",
+      "time": "2021-03-04T15:33:10Z",
+      "link": "https://github.com/w3c/EasierRDF/issues/79#issuecomment-790703907"
+    },
+    "drewnielson": {
+      "type": "comment",
+      "repo": "w3c/silver",
+      "time": "2021-03-04T15:35:41Z",
+      "link": "https://github.com/w3c/silver/issues/277#issuecomment-790705687"
+    },
+    "delewis": {
+      "type": "comment",
+      "repo": "WICG/turtledove",
+      "time": "2021-03-04T19:26:45Z",
+      "link": "https://github.com/WICG/turtledove/issues/103#issuecomment-790869758"
+    },
+    "bdonohue29": {
+      "type": "issue",
+      "repo": "w3c/dxwg",
+      "time": "2021-03-04T21:55:33Z",
+      "link": "https://github.com/w3c/dxwg/issues/1312"
+    },
+    "jeffreyatveridian": {
+      "type": "issue",
+      "repo": "w3c/i18n-drafts",
+      "time": "2021-03-04T22:20:43Z",
+      "link": "https://github.com/w3c/i18n-drafts/issues/280"
+    },
+    "pinkywon777": {
+      "type": "issue",
+      "repo": "WICG/web-codecs",
+      "time": "2021-03-05T01:10:43Z",
+      "link": "https://github.com/WICG/web-codecs/issues/147"
+    },
+    "stguav": {
+      "type": "issue",
+      "repo": "WICG/turtledove",
+      "time": "2021-03-05T01:45:41Z",
+      "link": "https://github.com/WICG/turtledove/issues/138"
+    },
+    "ashlyrclark": {
+      "type": "issue",
+      "repo": "w3c/csswg-drafts",
+      "time": "2021-03-05T03:57:29Z",
+      "link": "https://github.com/w3c/csswg-drafts/issues/6080"
+    },
+    "HervePruvost": {
+      "type": "comment",
+      "repo": "w3c/wot-usecases",
+      "time": "2021-03-05T11:12:15Z",
+      "link": "https://github.com/w3c/wot-usecases/pull/102#issuecomment-791352564"
+    },
+    "simonhearne": {
+      "type": "comment",
+      "repo": "WICG/responsive-image-client-hints",
+      "time": "2021-03-05T11:27:51Z",
+      "link": "https://github.com/WICG/responsive-image-client-hints/issues/4#issuecomment-791360249"
+    },
+    "sumeet-tiwari-samespace": {
+      "type": "issue",
+      "repo": "WICG/web-codecs",
+      "time": "2021-03-05T15:14:54Z",
+      "link": "https://github.com/WICG/web-codecs/issues/148"
+    },
+    "pjl-google": {
+      "type": "issue",
+      "repo": "WICG/turtledove",
+      "time": "2021-03-05T15:35:16Z",
+      "link": "https://github.com/WICG/turtledove/issues/139"
+    },
+    "Fady222": {
+      "type": "pull_request",
+      "repo": "w3c/wot-testing",
+      "time": "2021-03-05T15:36:14Z",
+      "link": "https://github.com/w3c/wot-testing/pull/123"
+    },
+    "cbmpvr": {
+      "type": "issue",
+      "repo": "w3c/gamepad",
+      "time": "2021-03-05T18:43:56Z",
+      "link": "https://github.com/w3c/gamepad/issues/145"
+    },
+    "DarrienG": {
+      "type": "comment",
+      "repo": "WICG/floc",
+      "time": "2021-03-05T21:34:50Z",
+      "link": "https://github.com/WICG/floc/issues/36#issuecomment-791724641"
+    },
+    "yuanworks": {
+      "type": "comment",
+      "repo": "WebAudio/web-audio-api-v2",
+      "time": "2021-03-06T13:41:56Z",
+      "link": "https://github.com/WebAudio/web-audio-api-v2/issues/26#issuecomment-791944044"
+    },
+    "xworld21": {
+      "type": "issue",
+      "repo": "w3c/epubcheck",
+      "time": "2021-03-06T15:21:47Z",
+      "link": "https://github.com/w3c/epubcheck/issues/1213"
+    },
+    "ManuelSelva": {
+      "type": "issue",
+      "repo": "WebAssembly/wasi-libc",
+      "time": "2021-03-06T15:54:59Z",
+      "link": "https://github.com/WebAssembly/wasi-libc/issues/236"
+    },
+    "NickCiliak": {
+      "type": "comment",
+      "repo": "w3c/IntersectionObserver",
+      "time": "2021-03-06T20:20:08Z",
+      "link": "https://github.com/w3c/IntersectionObserver/issues/283#issuecomment-792047814"
+    },
+    "meralus1990": {
+      "type": "pull_request",
+      "repo": "WebAssembly/wasi-sdk",
+      "time": "2021-03-07T02:18:44Z",
+      "link": "https://github.com/WebAssembly/wasi-sdk/pull/175"
+    },
+    "tamb": {
+      "type": "comment",
+      "repo": "w3c/screen-wake-lock",
+      "time": "2021-03-07T03:40:22Z",
+      "link": "https://github.com/w3c/screen-wake-lock/issues/59#issuecomment-792192613"
+    },
+    "sukoyakarizumu": {
+      "type": "issue",
+      "repo": "w3c/wcag",
+      "time": "2021-03-07T08:08:38Z",
+      "link": "https://github.com/w3c/wcag/issues/1670"
+    },
+    "systemaddict": {
+      "type": "issue",
+      "repo": "WICG/floc",
+      "time": "2021-03-07T08:52:39Z",
+      "link": "https://github.com/WICG/floc/issues/54"
+    },
+    "ph00lt0": {
+      "type": "comment",
+      "repo": "WICG/floc",
+      "time": "2021-03-07T12:56:12Z",
+      "link": "https://github.com/WICG/floc/issues/33#issuecomment-792274798"
+    },
+    "ryanbonifacino": {
+      "type": "comment",
+      "repo": "WICG/floc",
+      "time": "2021-03-07T17:15:06Z",
+      "link": "https://github.com/WICG/floc/issues/52#issuecomment-792313286"
     }
   }
 }
