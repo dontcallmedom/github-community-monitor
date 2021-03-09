@@ -1,54 +1,6 @@
 {
-  "since": "2021-02-08T00:00:51.537Z",
+  "since": "2021-02-09T00:00:27.656Z",
   "contributors": {
-    "ermi-ltd": {
-      "type": "comment",
-      "repo": "w3c/coga",
-      "time": "2021-02-08T09:30:06Z",
-      "link": "https://github.com/w3c/coga/issues/141#issuecomment-775005578"
-    },
-    "jwitas": {
-      "type": "issue",
-      "repo": "WebBluetoothCG/web-bluetooth",
-      "time": "2021-02-08T10:42:20Z",
-      "link": "https://github.com/WebBluetoothCG/web-bluetooth/issues/538"
-    },
-    "wrightwriter": {
-      "type": "pull_request",
-      "repo": "gpuweb/types",
-      "time": "2021-02-08T10:47:16Z",
-      "link": "https://github.com/gpuweb/types/pull/43"
-    },
-    "cdiggins": {
-      "type": "comment",
-      "repo": "gpuweb/gpuweb",
-      "time": "2021-02-08T14:39:20Z",
-      "link": "https://github.com/gpuweb/gpuweb/issues/1354#issuecomment-775195403"
-    },
-    "praveensankar": {
-      "type": "comment",
-      "repo": "w3c/did-core",
-      "time": "2021-02-08T16:00:35Z",
-      "link": "https://github.com/w3c/did-core/issues/453#issuecomment-775250982"
-    },
-    "rjsteinert": {
-      "type": "comment",
-      "repo": "WICG/storage-buckets",
-      "time": "2021-02-08T20:10:32Z",
-      "link": "https://github.com/WICG/storage-buckets/issues/24#issuecomment-775412774"
-    },
-    "lukasreussner": {
-      "type": "comment",
-      "repo": "w3c/wai-policies-prototype",
-      "time": "2021-02-08T21:18:05Z",
-      "link": "https://github.com/w3c/wai-policies-prototype/pull/388#issuecomment-775468419"
-    },
-    "mxschmitt": {
-      "type": "issue",
-      "repo": "w3c/webappsec-csp",
-      "time": "2021-02-08T21:45:41Z",
-      "link": "https://github.com/w3c/webappsec-csp/issues/460"
-    },
     "SeaQuench": {
       "type": "comment",
       "repo": "schemaorg/suggestions-questions-brainstorming",
@@ -637,12 +589,6 @@
       "time": "2021-02-28T21:24:33Z",
       "link": "https://github.com/WICG/trust-token-api/pull/56"
     },
-    "tomi-msft": {
-      "type": "pull_request",
-      "repo": "WICG/open-ui",
-      "time": "2021-03-01T09:17:06Z",
-      "link": "https://github.com/WICG/open-ui/pull/273"
-    },
     "baldwin47": {
       "type": "comment",
       "repo": "w3c/epub-specs",
@@ -660,12 +606,6 @@
       "repo": "WICG/privacy-preserving-ads",
       "time": "2021-03-01T19:40:35Z",
       "link": "https://github.com/WICG/privacy-preserving-ads/issues/3"
-    },
-    "david-bakker": {
-      "type": "issue",
-      "repo": "w3c/vc-imp-guide",
-      "time": "2021-03-02T11:02:56Z",
-      "link": "https://github.com/w3c/vc-imp-guide/issues/59"
     },
     "kyosheek": {
       "type": "comment",
@@ -877,6 +817,12 @@
       "time": "2021-03-07T08:52:39Z",
       "link": "https://github.com/WICG/floc/issues/54"
     },
+    "Adambyb": {
+      "type": "issue",
+      "repo": "schemaorg/suggestions-questions-brainstorming",
+      "time": "2021-03-07T10:05:20Z",
+      "link": "https://github.com/schemaorg/suggestions-questions-brainstorming/issues/255"
+    },
     "ph00lt0": {
       "type": "comment",
       "repo": "WICG/floc",
@@ -888,6 +834,48 @@
       "repo": "WICG/floc",
       "time": "2021-03-07T17:15:06Z",
       "link": "https://github.com/WICG/floc/issues/52#issuecomment-792313286"
+    },
+    "expenses": {
+      "type": "comment",
+      "repo": "gpuweb/gpuweb",
+      "time": "2021-03-07T18:59:25Z",
+      "link": "https://github.com/gpuweb/gpuweb/issues/659#issuecomment-792333582"
+    },
+    "GoldenFalls": {
+      "type": "comment",
+      "repo": "w3c/csswg-drafts",
+      "time": "2021-03-07T21:14:50Z",
+      "link": "https://github.com/w3c/csswg-drafts/issues/974#issuecomment-792354451"
+    },
+    "wil93": {
+      "type": "issue",
+      "repo": "WICG/scroll-to-text-fragment",
+      "time": "2021-03-08T08:30:01Z",
+      "link": "https://github.com/WICG/scroll-to-text-fragment/issues/169"
+    },
+    "lf-": {
+      "type": "pull_request",
+      "repo": "w3c/csswg-drafts",
+      "time": "2021-03-08T09:22:56Z",
+      "link": "https://github.com/w3c/csswg-drafts/pull/6084"
+    },
+    "tprice11": {
+      "type": "pull_request",
+      "repo": "w3c/mediacapture-insertable-streams",
+      "time": "2021-03-08T10:45:11Z",
+      "link": "https://github.com/w3c/mediacapture-insertable-streams/pull/18"
+    },
+    "blumamir": {
+      "type": "issue",
+      "repo": "w3c/trace-context-amqp",
+      "time": "2021-03-08T12:00:19Z",
+      "link": "https://github.com/w3c/trace-context-amqp/issues/12"
+    },
+    "peligio": {
+      "type": "comment",
+      "repo": "WICG/floc",
+      "time": "2021-03-08T17:24:57Z",
+      "link": "https://github.com/WICG/floc/issues/45#issuecomment-792924364"
     }
   }
 }
