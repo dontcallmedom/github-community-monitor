@@ -1,42 +1,6 @@
 {
-  "since": "2021-02-09T00:00:27.656Z",
+  "since": "2021-02-10T00:00:36.651Z",
   "contributors": {
-    "SeaQuench": {
-      "type": "comment",
-      "repo": "schemaorg/suggestions-questions-brainstorming",
-      "time": "2021-02-09T00:15:20Z",
-      "link": "https://github.com/schemaorg/suggestions-questions-brainstorming/issues/78#issuecomment-775553764"
-    },
-    "jigarshah13": {
-      "type": "comment",
-      "repo": "w3c/mediacapture-main",
-      "time": "2021-02-09T11:45:17Z",
-      "link": "https://github.com/w3c/mediacapture-main/issues/694#issuecomment-775880002"
-    },
-    "mankins": {
-      "type": "comment",
-      "repo": "WICG/webmonetization",
-      "time": "2021-02-09T12:13:38Z",
-      "link": "https://github.com/WICG/webmonetization/issues/144#issuecomment-775894244"
-    },
-    "Dinh710": {
-      "type": "comment",
-      "repo": "privacycg/storage-access",
-      "time": "2021-02-09T15:41:12Z",
-      "link": "https://github.com/privacycg/storage-access/issues/50#issuecomment-776032544"
-    },
-    "VirtualityXR": {
-      "type": "comment",
-      "repo": "immersive-web/immersive-web-weekly",
-      "time": "2021-02-09T18:23:59Z",
-      "link": "https://github.com/immersive-web/immersive-web-weekly/pull/34#issuecomment-776143421"
-    },
-    "steveluscher": {
-      "type": "comment",
-      "repo": "w3c/editing",
-      "time": "2021-02-09T19:34:51Z",
-      "link": "https://github.com/w3c/editing/issues/278#issuecomment-776188738"
-    },
     "hmenager": {
       "type": "comment",
       "repo": "BioSchemas/specifications",
@@ -216,12 +180,6 @@
       "repo": "w3c/webauthn",
       "time": "2021-02-17T14:13:00Z",
       "link": "https://github.com/w3c/webauthn/issues/1571"
-    },
-    "rainbreaw": {
-      "type": "comment",
-      "repo": "w3c/coga",
-      "time": "2021-02-17T16:49:44Z",
-      "link": "https://github.com/w3c/coga/issues/235#issuecomment-780693618"
     },
     "iamnewton": {
       "type": "issue",
@@ -463,12 +421,6 @@
       "time": "2021-02-25T08:09:27Z",
       "link": "https://github.com/BioSchemas/bioschemas.github.io/pull/372"
     },
-    "jdv-ibm": {
-      "type": "pull_request",
-      "repo": "w3c/did-spec-registries",
-      "time": "2021-02-25T12:02:59Z",
-      "link": "https://github.com/w3c/did-spec-registries/pull/259"
-    },
     "kevindekemele": {
       "type": "issue",
       "repo": "WICG/serial",
@@ -697,12 +649,6 @@
       "time": "2021-03-04T19:26:45Z",
       "link": "https://github.com/WICG/turtledove/issues/103#issuecomment-790869758"
     },
-    "bdonohue29": {
-      "type": "issue",
-      "repo": "w3c/dxwg",
-      "time": "2021-03-04T21:55:33Z",
-      "link": "https://github.com/w3c/dxwg/issues/1312"
-    },
     "jeffreyatveridian": {
       "type": "issue",
       "repo": "w3c/i18n-drafts",
@@ -783,9 +729,9 @@
     },
     "ManuelSelva": {
       "type": "issue",
-      "repo": "WebAssembly/wasi-libc",
+      "repo": "WebAssembly/wasi-filesystem",
       "time": "2021-03-06T15:54:59Z",
-      "link": "https://github.com/WebAssembly/wasi-libc/issues/236"
+      "link": "https://github.com/WebAssembly/wasi-filesystem/issues/22"
     },
     "NickCiliak": {
       "type": "comment",
@@ -835,12 +781,6 @@
       "time": "2021-03-07T17:15:06Z",
       "link": "https://github.com/WICG/floc/issues/52#issuecomment-792313286"
     },
-    "expenses": {
-      "type": "comment",
-      "repo": "gpuweb/gpuweb",
-      "time": "2021-03-07T18:59:25Z",
-      "link": "https://github.com/gpuweb/gpuweb/issues/659#issuecomment-792333582"
-    },
     "GoldenFalls": {
       "type": "comment",
       "repo": "w3c/csswg-drafts",
@@ -871,11 +811,71 @@
       "time": "2021-03-08T12:00:19Z",
       "link": "https://github.com/w3c/trace-context-amqp/issues/12"
     },
+    "spf00": {
+      "type": "pull_request",
+      "repo": "w3c/wot-thing-description",
+      "time": "2021-03-08T14:02:59Z",
+      "link": "https://github.com/w3c/wot-thing-description/pull/1065"
+    },
     "peligio": {
       "type": "comment",
       "repo": "WICG/floc",
       "time": "2021-03-08T17:24:57Z",
       "link": "https://github.com/WICG/floc/issues/45#issuecomment-792924364"
+    },
+    "patricktokeeffe": {
+      "type": "issue",
+      "repo": "w3c/webappsec-permissions-policy",
+      "time": "2021-03-09T02:11:26Z",
+      "link": "https://github.com/w3c/webappsec-permissions-policy/issues/418"
+    },
+    "Taher-Ghaleb": {
+      "type": "pull_request",
+      "repo": "w3c/epubcheck",
+      "time": "2021-03-09T05:24:04Z",
+      "link": "https://github.com/w3c/epubcheck/pull/1215"
+    },
+    "abhinavsinha001": {
+      "type": "issue",
+      "repo": "WICG/floc",
+      "time": "2021-03-09T08:21:51Z",
+      "link": "https://github.com/WICG/floc/issues/57"
+    },
+    "adtechnology": {
+      "type": "comment",
+      "repo": "WICG/conversion-measurement-api",
+      "time": "2021-03-09T08:24:37Z",
+      "link": "https://github.com/WICG/conversion-measurement-api/issues/96#issuecomment-793537041"
+    },
+    "stigbd": {
+      "type": "issue",
+      "repo": "w3c/shacl",
+      "time": "2021-03-09T09:37:31Z",
+      "link": "https://github.com/w3c/shacl/issues/9"
+    },
+    "anitoanto": {
+      "type": "issue",
+      "repo": "w3c/webrtc-pc",
+      "time": "2021-03-09T10:33:45Z",
+      "link": "https://github.com/w3c/webrtc-pc/issues/2628"
+    },
+    "etaleo": {
+      "type": "pull_request",
+      "repo": "w3c/vc-data-model",
+      "time": "2021-03-09T12:01:54Z",
+      "link": "https://github.com/w3c/vc-data-model/pull/767"
+    },
+    "ParisMeuleman": {
+      "type": "pull_request",
+      "repo": "WICG/app-history",
+      "time": "2021-03-09T15:09:11Z",
+      "link": "https://github.com/WICG/app-history/pull/64"
+    },
+    "jimb456": {
+      "type": "comment",
+      "repo": "WICG/webhid",
+      "time": "2021-03-09T18:57:01Z",
+      "link": "https://github.com/WICG/webhid/issues/51#issuecomment-794307151"
     }
   }
 }
