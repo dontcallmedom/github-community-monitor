@@ -1,24 +1,6 @@
 {
-  "since": "2021-02-15T00:00:11.761Z",
+  "since": "2021-02-16T00:00:43.224Z",
   "contributors": {
-    "tombigel": {
-      "type": "comment",
-      "repo": "w3c/csswg-drafts",
-      "time": "2021-02-15T10:59:53Z",
-      "link": "https://github.com/w3c/csswg-drafts/issues/5796#issuecomment-779142789"
-    },
-    "kotavy": {
-      "type": "comment",
-      "repo": "immersive-web/webvr-polyfill",
-      "time": "2021-02-15T14:50:24Z",
-      "link": "https://github.com/immersive-web/webvr-polyfill/issues/201#issuecomment-779270260"
-    },
-    "Wawa27": {
-      "type": "pull_request",
-      "repo": "gpuweb/types",
-      "time": "2021-02-15T16:27:20Z",
-      "link": "https://github.com/gpuweb/types/pull/45"
-    },
     "canove": {
       "type": "comment",
       "repo": "w3c/badging",
@@ -54,12 +36,6 @@
       "repo": "w3c/webauthn",
       "time": "2021-02-17T14:13:00Z",
       "link": "https://github.com/w3c/webauthn/issues/1571"
-    },
-    "iamnewton": {
-      "type": "issue",
-      "repo": "WICG/turtledove",
-      "time": "2021-02-17T19:08:59Z",
-      "link": "https://github.com/WICG/turtledove/issues/113"
     },
     "ClydeSeep": {
       "type": "comment",
@@ -787,12 +763,6 @@
       "time": "2021-03-11T00:07:18Z",
       "link": "https://github.com/w3c/mediacapture-main/issues/779"
     },
-    "JadeKessler": {
-      "type": "comment",
-      "repo": "privacycg/first-party-sets",
-      "time": "2021-03-11T01:33:31Z",
-      "link": "https://github.com/privacycg/first-party-sets/issues/33#issuecomment-796355961"
-    },
     "moe123": {
       "type": "comment",
       "repo": "WebAssembly/design",
@@ -835,12 +805,6 @@
       "time": "2021-03-11T19:44:37Z",
       "link": "https://github.com/w3ctag/design-reviews/issues/617"
     },
-    "ThanhLNP": {
-      "type": "issue",
-      "repo": "WICG/speech-api",
-      "time": "2021-03-12T09:51:11Z",
-      "link": "https://github.com/WICG/speech-api/issues/91"
-    },
     "michaljaron": {
       "type": "issue",
       "repo": "WICG/floc",
@@ -865,12 +829,6 @@
       "time": "2021-03-12T18:38:43Z",
       "link": "https://github.com/w3c/sparql-12/issues/47#issuecomment-797676210"
     },
-    "philiprhoades": {
-      "type": "issue",
-      "repo": "WebAssembly/website",
-      "time": "2021-03-13T08:34:43Z",
-      "link": "https://github.com/WebAssembly/website/issues/230"
-    },
     "prantlf": {
       "type": "comment",
       "repo": "WICG/webcomponents",
@@ -889,17 +847,53 @@
       "time": "2021-03-13T17:19:49Z",
       "link": "https://github.com/WICG/layout-instability/issues/99"
     },
-    "csim-20": {
-      "type": "comment",
-      "repo": "w3c/web-share",
-      "time": "2021-03-13T22:20:55Z",
-      "link": "https://github.com/w3c/web-share/issues/197#issuecomment-798794589"
+    "djjonbrown": {
+      "type": "issue",
+      "repo": "w3c/vc-use-cases",
+      "time": "2021-03-14T18:28:17Z",
+      "link": "https://github.com/w3c/vc-use-cases/issues/122"
     },
-    "gametheworld": {
+    "jamespullen": {
+      "type": "pull_request",
+      "repo": "w3c/wot-architecture",
+      "time": "2021-03-15T00:58:25Z",
+      "link": "https://github.com/w3c/wot-architecture/pull/583"
+    },
+    "ksamii": {
       "type": "comment",
-      "repo": "WICG/webusb",
-      "time": "2021-03-14T11:34:32Z",
-      "link": "https://github.com/WICG/webusb/issues/184#issuecomment-798891675"
+      "repo": "WICG/turtledove",
+      "time": "2021-03-15T01:45:28Z",
+      "link": "https://github.com/WICG/turtledove/pull/127#issuecomment-799035002"
+    },
+    "Nebulis": {
+      "type": "comment",
+      "repo": "w3c/vc-test-suite",
+      "time": "2021-03-15T05:10:19Z",
+      "link": "https://github.com/w3c/vc-test-suite/pull/115#issuecomment-799095054"
+    },
+    "jdv85": {
+      "type": "pull_request",
+      "repo": "WICG/webhid",
+      "time": "2021-03-15T05:33:58Z",
+      "link": "https://github.com/WICG/webhid/pull/57"
+    },
+    "SeverColhonAccesa": {
+      "type": "issue",
+      "repo": "WICG/WebApiDevice",
+      "time": "2021-03-15T10:55:21Z",
+      "link": "https://github.com/WICG/WebApiDevice/issues/7"
+    },
+    "evertondanilo": {
+      "type": "issue",
+      "repo": "WebAssembly/proposals",
+      "time": "2021-03-15T14:31:50Z",
+      "link": "https://github.com/WebAssembly/proposals/issues/101"
+    },
+    "jessicaoutlaw1": {
+      "type": "comment",
+      "repo": "immersive-web/immersive-web-weekly",
+      "time": "2021-03-15T18:25:18Z",
+      "link": "https://github.com/immersive-web/immersive-web-weekly/pull/39#issuecomment-799647374"
     }
   }
 }
